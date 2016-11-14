@@ -84,16 +84,16 @@
 
 
 
-<meta name="description" content="1、全页面静态化缓存也就是将页面全部生成html静态页面，用户访问时直接访问的静态页面，而不会去走php服务器解析的流程。此种方式，在CMS系统中比较常见，比如dedecms；一种比较常用的实现方式是用输出缓存：12345Ob_start()******要运行的代码*******$content = Ob_get_contents();****将缓存内容写入html文件*****Ob_end_cl">
+<meta name="description" content="1、全页面静态化缓存也就是将页面全部生成html静态页面，用户访问时直接访问的静态页面，而不会去走php服务器解析的流程。此种方式，在CMS系统中比较常见，比如dedecms；一种比较常用的实现方式是用输出缓存：12345Ob_start()******要运行的代码*******$content = Ob_get_contents();******将缓存内容写入html文件*****Ob_end_">
 <meta property="og:type" content="article">
 <meta property="og:title" content="php中9大技术缓存">
 <meta property="og:url" content="http://yoursite.com/2016/11/14/php中9大技术缓存/index.html">
 <meta property="og:site_name" content="学者">
-<meta property="og:description" content="1、全页面静态化缓存也就是将页面全部生成html静态页面，用户访问时直接访问的静态页面，而不会去走php服务器解析的流程。此种方式，在CMS系统中比较常见，比如dedecms；一种比较常用的实现方式是用输出缓存：12345Ob_start()******要运行的代码*******$content = Ob_get_contents();****将缓存内容写入html文件*****Ob_end_cl">
-<meta property="og:updated_time" content="2016-11-14T14:08:55.899Z">
+<meta property="og:description" content="1、全页面静态化缓存也就是将页面全部生成html静态页面，用户访问时直接访问的静态页面，而不会去走php服务器解析的流程。此种方式，在CMS系统中比较常见，比如dedecms；一种比较常用的实现方式是用输出缓存：12345Ob_start()******要运行的代码*******$content = Ob_get_contents();******将缓存内容写入html文件*****Ob_end_">
+<meta property="og:updated_time" content="2016-11-14T14:15:43.162Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="php中9大技术缓存">
-<meta name="twitter:description" content="1、全页面静态化缓存也就是将页面全部生成html静态页面，用户访问时直接访问的静态页面，而不会去走php服务器解析的流程。此种方式，在CMS系统中比较常见，比如dedecms；一种比较常用的实现方式是用输出缓存：12345Ob_start()******要运行的代码*******$content = Ob_get_contents();****将缓存内容写入html文件*****Ob_end_cl">
+<meta name="twitter:description" content="1、全页面静态化缓存也就是将页面全部生成html静态页面，用户访问时直接访问的静态页面，而不会去走php服务器解析的流程。此种方式，在CMS系统中比较常见，比如dedecms；一种比较常用的实现方式是用输出缓存：12345Ob_start()******要运行的代码*******$content = Ob_get_contents();******将缓存内容写入html文件*****Ob_end_">
 
 
 
@@ -313,7 +313,8 @@
       
 
       
-        <h3 id="1、全页面静态化缓存"><a href="#1、全页面静态化缓存" class="headerlink" title="1、全页面静态化缓存"></a>1、全页面静态化缓存</h3><p>也就是将页面全部生成html静态页面，用户访问时直接访问的静态页面，而不会去走php服务器解析的流程。此种方式，在CMS系统中比较常见，比如dedecms；<br>一种比较常用的实现方式是用输出缓存：<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Ob_start()</div><div class="line">******要运行的代码*******</div><div class="line">$content = Ob_get_contents();</div><div class="line">****将缓存内容写入html文件*****</div><div class="line">Ob_end_clean();</div></pre></td></tr></table></figure></p>
+        <h3 id="1、全页面静态化缓存"><a href="#1、全页面静态化缓存" class="headerlink" title="1、全页面静态化缓存"></a>1、全页面静态化缓存</h3><p>也就是将页面全部生成html静态页面，用户访问时直接访问的静态页面，而不会去走php服务器解析的流程。此种方式，在CMS系统中比较常见，比如dedecms；<br>一种比较常用的实现方式是用输出缓存：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Ob_start()</div><div class="line">******要运行的代码*******</div><div class="line">$content = Ob_get_contents();</div><div class="line">******将缓存内容写入html文件*****</div><div class="line">Ob_end_clean();</div></pre></td></tr></table></figure></p>
+<a id="more"></a>
 <h3 id="2、页面部分缓存"><a href="#2、页面部分缓存" class="headerlink" title="2、页面部分缓存"></a>2、页面部分缓存</h3><p>该种方式，是将一个页面中不经常变的部分进行静态缓存，而经常变化的块不缓存，最后组装在一起显示；可以使用类似于ob_get_contents的方式实现，也可以利用类似ESI之类的页面片段缓存策略，使其用来做动态页面中相对静态的片段部分的缓存(ESI技术，请baidu，此处不详讲)。</p>
 <p>该种方式可以用于如商城中的商品页；</p>
 <h3 id="3、数据缓存"><a href="#3、数据缓存" class="headerlink" title="3、数据缓存"></a>3、数据缓存</h3><p>顾名思义，就是缓存数据的一种方式；比如，商城中的某个商品信息，当用商品id去请求时，就会得出包括店铺信息、商品信息等数据，此时就可以将这些数据缓存到一个php文件中，文件名包含商品id来建一个唯一标示；下一次有人想查看这个商品时，首先就直接调这个文件里面的信息，而不用再去数据库查询；其实缓存文件中缓存的就是一个php数组之类；</p>
@@ -326,7 +327,7 @@
 <p>当商家在后台修改这个商品的信息时，点击保存，我们同时就更新缓存文件；那么，买家访问这个商品信息时，实际上访问的是一个静态页面，而不需要再去访问数据库；</p>
 <p>试想，如果对商品页不缓存，那么每次访问一个商品就要去数据库查一次，如果有10万人在线浏览商品，那服务器压力就大了；</p>
 <h3 id="6、内存式缓存"><a href="#6、内存式缓存" class="headerlink" title="6、内存式缓存"></a>6、内存式缓存</h3><p>提到这个，可能大家想到的首先就是Memcached；memcached是高性能的分布式内存缓存服务器。 一般的使用目的是，通过缓存数据库查询结果，减少数据库访问次数，以提高动态Web应用的速度、 提高可扩展性。</p>
-<p>它就是将需要缓存的信息，缓存到系统内存中，需要获取信息时，直接到内存中取；比较常用的方式就是 key–&gt;value方式；<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$memcachehost = <span class="string">'192.168.6.191'</span>;</div><div class="line"> $memcacheport = <span class="number">11211</span>;</div><div class="line"> $memcachelife = <span class="number">60</span>;</div><div class="line"> $memcache = <span class="keyword">new</span> Memcache;</div><div class="line"> $memcache-&gt;connect($memcachehost,$memcacheport) <span class="keyword">or</span> <span class="keyword">die</span> (<span class="string">"Could nconnect"</span>);</div><div class="line"> $memcache-&gt;set(<span class="string">'key'</span>,<span class="string">'缓存的内容'</span>);</div><div class="line"> $get = $memcache-&gt;get($key);       <span class="comment">//获取信息</span></div></pre></td></tr></table></figure></p>
+<p>它就是将需要缓存的信息，缓存到系统内存中，需要获取信息时，直接到内存中取；比较常用的方式就是 key–&gt;value方式；<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$memcachehost = &apos;192.168.6.191&apos;;</div><div class="line">$memcacheport = 11211;</div><div class="line">$memcachelife = 60;</div><div class="line">$memcache = new Memcache;</div><div class="line">$memcache-&gt;connect($memcachehost,$memcacheport) or die (&quot;Could nconnect&quot;);</div><div class="line">$memcache-&gt;set(&apos;key&apos;,&apos;缓存的内容&apos;);</div><div class="line">$get = $memcache-&gt;get($key);       //获取信息</div></pre></td></tr></table></figure></p>
 <h3 id="7、apache缓存模块"><a href="#7、apache缓存模块" class="headerlink" title="7、apache缓存模块"></a>7、apache缓存模块</h3><p>apache安装完以后，是不允许被cache的。如果外接了cache或squid服务器要求进行web加速的话，就需要在htttpd.conf里进行设置，当然前提是在安装apache的时候要激活mod_cache的模块。</p>
 <h3 id="8、php-APC缓存扩展"><a href="#8、php-APC缓存扩展" class="headerlink" title="8、php APC缓存扩展"></a>8、php APC缓存扩展</h3><p>Php有一个APC缓存扩展，windows下面为php_apc.dll，需要先加载这个模块，然后是在php.ini里面进行配置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">[apc]</div><div class="line">extension=php_apc.dll</div><div class="line">apc.rfc1867 = on</div><div class="line">upload_max_filesize = 100M</div><div class="line">post_max_size = 100M</div><div class="line">apc.max_file_size = 200M</div><div class="line">upload_max_filesize = 1000M</div><div class="line">post_max_size = 1000M</div><div class="line">max_execution_time = 600 ; 每个PHP页面运行的最大时间值(秒)，默认30秒</div><div class="line">max_input_time = 600 ; 每个PHP页面接收数据所需的最大时间，默认60</div><div class="line">memory_limit = 128M ; 每个PHP页面所吃掉的最大内存，默认8M</div></pre></td></tr></table></figure></p>
 <p>9、Opcode缓存<br>我们知道，php的执行流程:php代码先被解析为Tokens，然后再编译为Opcode码，最后执行Opcode码，返回结果；所以，对于相同的php文件，第一次运行时可以缓存其Opcode码，下次再执行这个页面时，直接会去找到缓存下的opcode码，直接执行最后一步，而不再需要中间的步骤了。</p>
