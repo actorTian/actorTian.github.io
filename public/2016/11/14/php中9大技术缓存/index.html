@@ -1,0 +1,656 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="php," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.2" />
+
+
+
+
+
+
+<meta name="description" content="1、全页面静态化缓存也就是将页面全部生成html静态页面，用户访问时直接访问的静态页面，而不会去走php服务器解析的流程。此种方式，在CMS系统中比较常见，比如dedecms；一种比较常用的实现方式是用输出缓存：12345Ob_start()******要运行的代码*******$content = Ob_get_contents();******将缓存内容写入html文件*****Ob_end_">
+<meta property="og:type" content="article">
+<meta property="og:title" content="php中9大技术缓存">
+<meta property="og:url" content="http://yoursite.com/2016/11/14/php中9大技术缓存/index.html">
+<meta property="og:site_name" content="学者">
+<meta property="og:description" content="1、全页面静态化缓存也就是将页面全部生成html静态页面，用户访问时直接访问的静态页面，而不会去走php服务器解析的流程。此种方式，在CMS系统中比较常见，比如dedecms；一种比较常用的实现方式是用输出缓存：12345Ob_start()******要运行的代码*******$content = Ob_get_contents();******将缓存内容写入html文件*****Ob_end_">
+<meta property="og:updated_time" content="2016-11-14T14:15:43.162Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="php中9大技术缓存">
+<meta name="twitter:description" content="1、全页面静态化缓存也就是将页面全部生成html静态页面，用户访问时直接访问的静态页面，而不会去走php服务器解析的流程。此种方式，在CMS系统中比较常见，比如dedecms；一种比较常用的实现方式是用输出缓存：12345Ob_start()******要运行的代码*******$content = Ob_get_contents();******将缓存内容写入html文件*****Ob_end_">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/11/14/php中9大技术缓存/"/>
+
+
+  <title> php中9大技术缓存 | 学者 </title>
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">学者</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                php中9大技术缓存
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-11-14T22:04:33+08:00" content="2016-11-14">
+              2016-11-14
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/11/14/php中9大技术缓存/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/14/php中9大技术缓存/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="1、全页面静态化缓存"><a href="#1、全页面静态化缓存" class="headerlink" title="1、全页面静态化缓存"></a>1、全页面静态化缓存</h3><p>也就是将页面全部生成html静态页面，用户访问时直接访问的静态页面，而不会去走php服务器解析的流程。此种方式，在CMS系统中比较常见，比如dedecms；<br>一种比较常用的实现方式是用输出缓存：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Ob_start()</div><div class="line">******要运行的代码*******</div><div class="line">$content = Ob_get_contents();</div><div class="line">******将缓存内容写入html文件*****</div><div class="line">Ob_end_clean();</div></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<h3 id="2、页面部分缓存"><a href="#2、页面部分缓存" class="headerlink" title="2、页面部分缓存"></a>2、页面部分缓存</h3><p>该种方式，是将一个页面中不经常变的部分进行静态缓存，而经常变化的块不缓存，最后组装在一起显示；可以使用类似于ob_get_contents的方式实现，也可以利用类似ESI之类的页面片段缓存策略，使其用来做动态页面中相对静态的片段部分的缓存(ESI技术，请baidu，此处不详讲)。</p>
+<p>该种方式可以用于如商城中的商品页；</p>
+<h3 id="3、数据缓存"><a href="#3、数据缓存" class="headerlink" title="3、数据缓存"></a>3、数据缓存</h3><p>顾名思义，就是缓存数据的一种方式；比如，商城中的某个商品信息，当用商品id去请求时，就会得出包括店铺信息、商品信息等数据，此时就可以将这些数据缓存到一个php文件中，文件名包含商品id来建一个唯一标示；下一次有人想查看这个商品时，首先就直接调这个文件里面的信息，而不用再去数据库查询；其实缓存文件中缓存的就是一个php数组之类；</p>
+<p>Ecmall商城系统里面就用了这种方式；</p>
+<h3 id="4、查询缓存"><a href="#4、查询缓存" class="headerlink" title="4、查询缓存"></a>4、查询缓存</h3><p>其实这跟数据缓存是一个思路，就是根据查询语句来缓存；将查询得到的数据缓存在一个文件中，下次遇到相同的查询时，就直接先从这个文件里面调数据，不会再去查数据库；但此处的缓存文件名可能就需要以查询语句为基点来建立唯一标示；</p>
+<p>按时间变更进行缓存</p>
+<p>其实，这一条不是真正的缓存方式；上面的2、3、4的缓存技术一般都用到了时间变更判断；就是对于缓存文件您需要设一个有效时间，在这个有效时间内，相同的访问才会先取缓存文件的内容，但是超过设定的缓存时间，就需要重新从数据库中获取数据，并生产最新的缓存文件；比如，我将我们商城的首页就是设置2个小时更新一次；</p>
+<h3 id="5、按内容变更进行缓存"><a href="#5、按内容变更进行缓存" class="headerlink" title="5、按内容变更进行缓存"></a>5、按内容变更进行缓存</h3><p>这个也并非独立的缓存技术，需结合着用；就是当数据库内容被修改时，即刻更新缓存文件；</p>
+<p>比如，一个人流量很大的商城，商品很多，商品表必然比较大，这表的压力也比较重；我们就可以对商品显示页进行页面缓存；</p>
+<p>当商家在后台修改这个商品的信息时，点击保存，我们同时就更新缓存文件；那么，买家访问这个商品信息时，实际上访问的是一个静态页面，而不需要再去访问数据库；</p>
+<p>试想，如果对商品页不缓存，那么每次访问一个商品就要去数据库查一次，如果有10万人在线浏览商品，那服务器压力就大了；</p>
+<h3 id="6、内存式缓存"><a href="#6、内存式缓存" class="headerlink" title="6、内存式缓存"></a>6、内存式缓存</h3><p>提到这个，可能大家想到的首先就是Memcached；memcached是高性能的分布式内存缓存服务器。 一般的使用目的是，通过缓存数据库查询结果，减少数据库访问次数，以提高动态Web应用的速度、 提高可扩展性。</p>
+<p>它就是将需要缓存的信息，缓存到系统内存中，需要获取信息时，直接到内存中取；比较常用的方式就是 key–&gt;value方式；<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$memcachehost = &apos;192.168.6.191&apos;;</div><div class="line">$memcacheport = 11211;</div><div class="line">$memcachelife = 60;</div><div class="line">$memcache = new Memcache;</div><div class="line">$memcache-&gt;connect($memcachehost,$memcacheport) or die (&quot;Could nconnect&quot;);</div><div class="line">$memcache-&gt;set(&apos;key&apos;,&apos;缓存的内容&apos;);</div><div class="line">$get = $memcache-&gt;get($key);       //获取信息</div></pre></td></tr></table></figure></p>
+<h3 id="7、apache缓存模块"><a href="#7、apache缓存模块" class="headerlink" title="7、apache缓存模块"></a>7、apache缓存模块</h3><p>apache安装完以后，是不允许被cache的。如果外接了cache或squid服务器要求进行web加速的话，就需要在htttpd.conf里进行设置，当然前提是在安装apache的时候要激活mod_cache的模块。</p>
+<h3 id="8、php-APC缓存扩展"><a href="#8、php-APC缓存扩展" class="headerlink" title="8、php APC缓存扩展"></a>8、php APC缓存扩展</h3><p>Php有一个APC缓存扩展，windows下面为php_apc.dll，需要先加载这个模块，然后是在php.ini里面进行配置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">[apc]</div><div class="line">extension=php_apc.dll</div><div class="line">apc.rfc1867 = on</div><div class="line">upload_max_filesize = 100M</div><div class="line">post_max_size = 100M</div><div class="line">apc.max_file_size = 200M</div><div class="line">upload_max_filesize = 1000M</div><div class="line">post_max_size = 1000M</div><div class="line">max_execution_time = 600 ; 每个PHP页面运行的最大时间值(秒)，默认30秒</div><div class="line">max_input_time = 600 ; 每个PHP页面接收数据所需的最大时间，默认60</div><div class="line">memory_limit = 128M ; 每个PHP页面所吃掉的最大内存，默认8M</div></pre></td></tr></table></figure></p>
+<p>9、Opcode缓存<br>我们知道，php的执行流程:php代码先被解析为Tokens，然后再编译为Opcode码，最后执行Opcode码，返回结果；所以，对于相同的php文件，第一次运行时可以缓存其Opcode码，下次再执行这个页面时，直接会去找到缓存下的opcode码，直接执行最后一步，而不再需要中间的步骤了。</p>
+<p>比较知名的是XCache、Turck MM Cache、PHP Accelerator等。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/php/" rel="tag">#php</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/11/14/破而后立之js对象的创建/" rel="next" title="破而后立之js对象的创建">
+                <i class="fa fa-chevron-left"></i> 破而后立之js对象的创建
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/11/14/php中9大技术缓存/"
+           data-title="php中9大技术缓存" data-url="http://yoursite.com/2016/11/14/php中9大技术缓存/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://7xiwze.com1.z0.glb.clouddn.com/50.jpg"
+               alt="Tianhao" />
+          <p class="site-author-name" itemprop="name">Tianhao</p>
+          <p class="site-description motion-element" itemprop="description">终生学习者，实践者，践行渐远。</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">5</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/actorTian" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、全页面静态化缓存"><span class="nav-number">1.</span> <span class="nav-text">1、全页面静态化缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、页面部分缓存"><span class="nav-number">2.</span> <span class="nav-text">2、页面部分缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、数据缓存"><span class="nav-number">3.</span> <span class="nav-text">3、数据缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4、查询缓存"><span class="nav-number">4.</span> <span class="nav-text">4、查询缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5、按内容变更进行缓存"><span class="nav-number">5.</span> <span class="nav-text">5、按内容变更进行缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6、内存式缓存"><span class="nav-number">6.</span> <span class="nav-text">6、内存式缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7、apache缓存模块"><span class="nav-number">7.</span> <span class="nav-text">7、apache缓存模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8、php-APC缓存扩展"><span class="nav-number">8.</span> <span class="nav-text">8、php APC缓存扩展</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Tianhao</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.2"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"lamphao"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

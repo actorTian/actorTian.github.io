@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="哲学," />
+  <meta name="keywords" content="javascript," />
 
 
 
@@ -84,16 +84,43 @@
 
 
 
-<meta name="description" content="不做叶公好龙式的读者为了读书而读书还是为了自己而读书，不仅仅是如今社会的问题，在历史上都是一直存在的老大难。曾今的王阳明就为这句话而折腾过。恰巧我最近读了熊逸大师的《阳明心学》，便来分享我这中国哲学小白在探索过程中的所见。">
+<meta name="description" content="javascript对象的创建方法
+使用内置对象创建
+使用json符号
+自定义对象构造
+
+使用内置对象创建
+JavaScript语言原生对象（语言级对象），如String、Object、Function等； 
+JavaScript运行期的宿主对象（环境宿主级对象），如window、document、body等。 
+
+1234var str   = new String(&quot;实例初始化String&quot;)">
 <meta property="og:type" content="article">
-<meta property="og:title" content="理学二分，心学归一">
-<meta property="og:url" content="http://yoursite.com/2016/11/02/理学二分，心学归一/index.html">
+<meta property="og:title" content="破而后立之js对象的创建">
+<meta property="og:url" content="http://yoursite.com/2016/11/14/破而后立之js对象的创建/index.html">
 <meta property="og:site_name" content="学者">
-<meta property="og:description" content="不做叶公好龙式的读者为了读书而读书还是为了自己而读书，不仅仅是如今社会的问题，在历史上都是一直存在的老大难。曾今的王阳明就为这句话而折腾过。恰巧我最近读了熊逸大师的《阳明心学》，便来分享我这中国哲学小白在探索过程中的所见。">
-<meta property="og:updated_time" content="2016-11-06T05:03:59.729Z">
+<meta property="og:description" content="javascript对象的创建方法
+使用内置对象创建
+使用json符号
+自定义对象构造
+
+使用内置对象创建
+JavaScript语言原生对象（语言级对象），如String、Object、Function等； 
+JavaScript运行期的宿主对象（环境宿主级对象），如window、document、body等。 
+
+1234var str   = new String(&quot;实例初始化String&quot;)">
+<meta property="og:updated_time" content="2016-11-14T14:03:00.101Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="理学二分，心学归一">
-<meta name="twitter:description" content="不做叶公好龙式的读者为了读书而读书还是为了自己而读书，不仅仅是如今社会的问题，在历史上都是一直存在的老大难。曾今的王阳明就为这句话而折腾过。恰巧我最近读了熊逸大师的《阳明心学》，便来分享我这中国哲学小白在探索过程中的所见。">
+<meta name="twitter:title" content="破而后立之js对象的创建">
+<meta name="twitter:description" content="javascript对象的创建方法
+使用内置对象创建
+使用json符号
+自定义对象构造
+
+使用内置对象创建
+JavaScript语言原生对象（语言级对象），如String、Object、Function等； 
+JavaScript运行期的宿主对象（环境宿主级对象），如window、document、body等。 
+
+1234var str   = new String(&quot;实例初始化String&quot;)">
 
 
 
@@ -114,10 +141,10 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/11/02/理学二分，心学归一/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/11/14/破而后立之js对象的创建/"/>
 
 
-  <title> 理学二分，心学归一 | 学者 </title>
+  <title> 破而后立之js对象的创建 | 学者 </title>
 </head>
 
 <body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
@@ -247,7 +274,7 @@
             
             
               
-                理学二分，心学归一
+                破而后立之js对象的创建
               
             
           </h1>
@@ -259,8 +286,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-11-02T22:02:18+08:00" content="2016-11-02">
-              2016-11-02
+            <time itemprop="dateCreated" datetime="2016-11-14T21:17:25+08:00" content="2016-11-14">
+              2016-11-14
             </time>
           </span>
 
@@ -273,8 +300,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/读书/" itemprop="url" rel="index">
-                    <span itemprop="name">读书</span>
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
                   </a>
                 </span>
 
@@ -289,8 +316,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/11/02/理学二分，心学归一/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/02/理学二分，心学归一/" itemprop="commentsCount"></span>
+                <a href="/2016/11/14/破而后立之js对象的创建/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/14/破而后立之js对象的创建/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -313,15 +340,18 @@
       
 
       
-        <h3 id="不做叶公好龙式的读者"><a href="#不做叶公好龙式的读者" class="headerlink" title="不做叶公好龙式的读者"></a>不做叶公好龙式的读者</h3><p><strong>为了读书而读书还是为了自己而读书</strong>，不仅仅是如今社会的问题，在历史上都是一直存在的老大难。曾今的王阳明就为这句话而折腾过。恰巧我最近读了熊逸大师的《阳明心学》，便来分享我这中国哲学小白在探索过程中的所见。</p>
-<a id="more"></a>
-<h3 id="理学二分，心学归一"><a href="#理学二分，心学归一" class="headerlink" title="理学二分，心学归一"></a>理学二分，心学归一</h3><p>“朱子道，陆子禅”，有人说都是发扬了空门圣学，两人分别可以代表儒家精神的一支。以点及面的来看就是“程朱理学，陆王心学”，程朱理学是以二程创作朱熹发扬广大的理学，陆王心学是陆九渊创造王阳明发扬广大的心学。朱熹的核心思想：“格物致知”，意思是去探索和发掘外在的万事万物，从而获得知识，道理。王阳明的核心思想是：“存天理，灭人欲，知行合一”，意思是保存心中的天理,消灭人的欲望。先认识事物的道理，再去事物中运用这些道理。<br>它两的最大区别是什么？打个最简单的比方。例如我现在有个目的是要读很多书获取知识，道理。那朱熹就会说，不用管认不认识字，你就去不断的读书，读书过程中不认识的字就去学习，认识。你读的多了，字就认识的多了，读书和获得知识就都不是问题了。反过来，王阳明会说，你既然要读书，那你就先去学认识字,等把绝大多数的字都认识了，你才去读书，这样才能顺利的进行阅读，获得知识。<br>我们可以看出，他俩无非是先后问题，但它们都是同一个目的，都是通过读书获得知识，修正内心！</p>
-<h3 id="南能北秀"><a href="#南能北秀" class="headerlink" title="南能北秀"></a>南能北秀</h3><p>因为争锋相对二相互成就的不仅仅只有上述的心学派，还有只差一线之隔的禅宗“南能北秀”，南能：南方的慧能，北秀：北方的神秀。它们两又有什么故事呢？我们很熟悉的一句话<strong>菩提本无树，明镜亦非台，本来无一物，何处惹尘埃？</strong>就是出自“六祖”慧能大师之手了。</p>
-<blockquote>
-<p>在当时（唐代），神秀和慧能是佛法两位学有所成的大师了，神秀去了北方宣传佛法，提出了<strong>身是菩提树，心如明镜台，时时勤拂拭，勿使惹尘埃。</strong>，理所当然的慧能去了南方宣传佛法，看到神秀说的不爽之后，就提出了<strong>菩提本无树，明镜亦非台，本来无一物，何处惹尘埃？</strong>。我们从这两位大师的谒语延伸到我们自身学习的话，神秀就说应该“循序渐进”，慧能会说要“顿悟”。</p>
-</blockquote>
-<p>我上次看到一位大师的话说起这一段，他给的解释是：我们应当结合起来应用，神秀所说的“渐进式”针对过程，慧能的“顿悟式”应该从果位上来阐述。在修行过程中应该循序渐进，我们便能很容易顿悟式的获得成果。</p>
-<h3 id="中国的三大宗教？"><a href="#中国的三大宗教？" class="headerlink" title="中国的三大宗教？"></a>中国的三大宗教？</h3><p>南能北秀都是禅宗，禅宗是属于佛教八大宗之一，且是发展的影响力比较大的。有人说，中国有三大宗教，分别是：佛教，道教，儒教。<strong>什么是宗教？</strong>至少一种核心哲学思想，加上一定的上层建筑，就可以说是宗教！上层建筑包括：迷信，教条，仪式和组织。所以儒教，还不算是一个宗教！</p>
+        <h3 id="javascript对象的创建方法"><a href="#javascript对象的创建方法" class="headerlink" title="javascript对象的创建方法"></a>javascript对象的创建方法</h3><ol>
+<li>使用内置对象创建</li>
+<li>使用json符号</li>
+<li>自定义对象构造</li>
+</ol>
+<h4 id="使用内置对象创建"><a href="#使用内置对象创建" class="headerlink" title="使用内置对象创建"></a>使用内置对象创建</h4><ol>
+<li>JavaScript语言原生对象（语言级对象），如String、Object、Function等； </li>
+<li>JavaScript运行期的宿主对象（环境宿主级对象），如window、document、body等。 </li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> str   = <span class="keyword">new</span> <span class="built_in">String</span>(<span class="string">"实例初始化String"</span>);</div><div class="line"><span class="keyword">var</span> str_o = <span class="string">"直接赋值的String"</span>;</div><div class="line"><span class="keyword">var</span> func  = <span class="keyword">new</span> <span class="built_in">Function</span>(<span class="string">"x"</span>,<span class="string">"alert(x)"</span>);<span class="comment">//示例初始化func</span></div><div class="line"><span class="keyword">var</span> o     = <span class="keyword">new</span> <span class="built_in">Object</span>();<span class="comment">//示例初始化一个Object</span></div></pre></td></tr></table></figure>
+<h4 id="使用json符号"><a href="#使用json符号" class="headerlink" title="使用json符号"></a>使用json符号</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> _obj = &#123;<span class="attr">name</span>:<span class="string">'2'</span>, <span class="attr">init</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'debug'</span>);</div><div class="line">&#125;&#125;;</div></pre></td></tr></table></figure>
+<h4 id="自定义构造对象"><a href="#自定义构造对象" class="headerlink" title="自定义构造对象"></a>自定义构造对象</h4><p>创建高级对象有两种方式: this关键字和原型prototype<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Girl</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">this</span>.name = <span class="string">'二'</span>;</div><div class="line">&#125;</div><div class="line">Girl.prototype.init = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">"i'm coming"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -344,7 +374,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/哲学/" rel="tag">#哲学</a>
+            <a href="/tags/javascript/" rel="tag">#javascript</a>
           
         </div>
       
@@ -353,16 +383,16 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/10/21/奇妙的践行者/" rel="next" title="奇妙的践行者">
-                <i class="fa fa-chevron-left"></i> 奇妙的践行者
+              <a href="/2016/11/02/理学二分，心学归一/" rel="next" title="理学二分，心学归一">
+                <i class="fa fa-chevron-left"></i> 理学二分，心学归一
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/11/14/破而后立之js对象的创建/" rel="prev" title="破而后立之js对象的创建">
-                破而后立之js对象的创建 <i class="fa fa-chevron-right"></i>
+              <a href="/2016/11/14/php中9大技术缓存/" rel="prev" title="php中9大技术缓存">
+                php中9大技术缓存 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -389,8 +419,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/11/02/理学二分，心学归一/"
-           data-title="理学二分，心学归一" data-url="http://yoursite.com/2016/11/02/理学二分，心学归一/">
+      <div class="ds-thread" data-thread-key="2016/11/14/破而后立之js对象的创建/"
+           data-title="破而后立之js对象的创建" data-url="http://yoursite.com/2016/11/14/破而后立之js对象的创建/">
       </div>
     
   </div>
@@ -492,7 +522,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#不做叶公好龙式的读者"><span class="nav-number">1.</span> <span class="nav-text">不做叶公好龙式的读者</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#理学二分，心学归一"><span class="nav-number">2.</span> <span class="nav-text">理学二分，心学归一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#南能北秀"><span class="nav-number">3.</span> <span class="nav-text">南能北秀</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#中国的三大宗教？"><span class="nav-number">4.</span> <span class="nav-text">中国的三大宗教？</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#javascript对象的创建方法"><span class="nav-number">1.</span> <span class="nav-text">javascript对象的创建方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#使用内置对象创建"><span class="nav-number">1.1.</span> <span class="nav-text">使用内置对象创建</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用json符号"><span class="nav-number">1.2.</span> <span class="nav-text">使用json符号</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#自定义构造对象"><span class="nav-number">1.3.</span> <span class="nav-text">自定义构造对象</span></a></li></ol></li></ol></div>
             
           </div>
         </section>

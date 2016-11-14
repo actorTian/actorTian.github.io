@@ -249,6 +249,259 @@
             
               
                 
+                <a class="post-title-link" href="/2016/11/14/php中9大技术缓存/" itemprop="url">
+                  php中9大技术缓存
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-11-14T22:04:33+08:00" content="2016-11-14">
+              2016-11-14
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/11/14/php中9大技术缓存/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/14/php中9大技术缓存/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h3 id="1、全页面静态化缓存"><a href="#1、全页面静态化缓存" class="headerlink" title="1、全页面静态化缓存"></a>1、全页面静态化缓存</h3><p>也就是将页面全部生成html静态页面，用户访问时直接访问的静态页面，而不会去走php服务器解析的流程。此种方式，在CMS系统中比较常见，比如dedecms；<br>一种比较常用的实现方式是用输出缓存：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Ob_start()</div><div class="line">******要运行的代码*******</div><div class="line">$content = Ob_get_contents();</div><div class="line">******将缓存内容写入html文件*****</div><div class="line">Ob_end_clean();</div></pre></td></tr></table></figure></p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/11/14/php中9大技术缓存/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/11/14/破而后立之js对象的创建/" itemprop="url">
+                  破而后立之js对象的创建
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-11-14T21:17:25+08:00" content="2016-11-14">
+              2016-11-14
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/11/14/破而后立之js对象的创建/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/14/破而后立之js对象的创建/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="javascript对象的创建方法"><a href="#javascript对象的创建方法" class="headerlink" title="javascript对象的创建方法"></a>javascript对象的创建方法</h3><ol>
+<li>使用内置对象创建</li>
+<li>使用json符号</li>
+<li>自定义对象构造</li>
+</ol>
+<h4 id="使用内置对象创建"><a href="#使用内置对象创建" class="headerlink" title="使用内置对象创建"></a>使用内置对象创建</h4><ol>
+<li>JavaScript语言原生对象（语言级对象），如String、Object、Function等； </li>
+<li>JavaScript运行期的宿主对象（环境宿主级对象），如window、document、body等。 </li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> str   = <span class="keyword">new</span> <span class="built_in">String</span>(<span class="string">"实例初始化String"</span>);</div><div class="line"><span class="keyword">var</span> str_o = <span class="string">"直接赋值的String"</span>;</div><div class="line"><span class="keyword">var</span> func  = <span class="keyword">new</span> <span class="built_in">Function</span>(<span class="string">"x"</span>,<span class="string">"alert(x)"</span>);<span class="comment">//示例初始化func</span></div><div class="line"><span class="keyword">var</span> o     = <span class="keyword">new</span> <span class="built_in">Object</span>();<span class="comment">//示例初始化一个Object</span></div></pre></td></tr></table></figure>
+<h4 id="使用json符号"><a href="#使用json符号" class="headerlink" title="使用json符号"></a>使用json符号</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> _obj = &#123;<span class="attr">name</span>:<span class="string">'2'</span>, <span class="attr">init</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'debug'</span>);</div><div class="line">&#125;&#125;;</div></pre></td></tr></table></figure>
+<h4 id="自定义构造对象"><a href="#自定义构造对象" class="headerlink" title="自定义构造对象"></a>自定义构造对象</h4><p>创建高级对象有两种方式: this关键字和原型prototype<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Girl</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">this</span>.name = <span class="string">'二'</span>;</div><div class="line">&#125;</div><div class="line">Girl.prototype.init = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">"i'm coming"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/11/02/理学二分，心学归一/" itemprop="url">
                   理学二分，心学归一
                 </a>
@@ -628,7 +881,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">3</span>
+              <span class="site-state-item-count">5</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -636,7 +889,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-count">2</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -645,7 +898,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
