@@ -94,7 +94,7 @@
 <meta property="og:description" content="代码优化，程序员本职和进阶的必须工作。前天在公司测试服务器部署了xhprfo,今天记录下。
 什么是xhprof?XHProf是一个分层PHP性能分析工具。它报告函数级别的请求次数和各种指标，包括阻塞时间，CPU时间和内存使用情况。一个函数的开销，可细分成调用者和被调用者的开销，XHProf数据收集阶段，它记录调用次数的追踪和包容性的指标弧在动态callgraph的一个程序。
 为什么是xhprof?">
-<meta property="og:updated_time" content="2016-12-19T14:20:28.731Z">
+<meta property="og:updated_time" content="2016-12-19T14:25:17.679Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="php代码分析的前奏--xhprof">
 <meta name="twitter:description" content="代码优化，程序员本职和进阶的必须工作。前天在公司测试服务器部署了xhprfo,今天记录下。
@@ -322,6 +322,7 @@
         <p>代码优化，程序员本职和进阶的必须工作。前天在公司测试服务器部署了xhprfo,今天记录下。</p>
 <h3 id="什么是xhprof"><a href="#什么是xhprof" class="headerlink" title="什么是xhprof?"></a>什么是xhprof?</h3><p>XHProf是一个分层PHP性能分析工具。它报告函数级别的请求次数和各种指标，包括阻塞时间，CPU时间和内存使用情况。一个函数的开销，可细分成调用者和被调用者的开销，XHProf数据收集阶段，它记录调用次数的追踪和包容性的指标弧在动态callgraph的一个程序。</p>
 <h3 id="为什么是xhprof"><a href="#为什么是xhprof" class="headerlink" title="为什么是xhprof?"></a>为什么是xhprof?</h3><p>轻量且配置灵活。</p>
+<a id="more"></a>
 <h3 id="Xhprof安装"><a href="#Xhprof安装" class="headerlink" title="Xhprof安装"></a>Xhprof安装</h3><h4 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a>第一步</h4><figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">wget http://pecl.php.net/<span class="built_in">get</span>/xhprof-<span class="number">0.9</span>.<span class="number">4</span>.tgz  </div><div class="line">tar zxf xhprof-<span class="number">0.9</span>.<span class="number">2</span>.tgz  </div><div class="line"><span class="keyword">cd</span> xhprof-<span class="number">0.9</span>.<span class="number">2</span>  </div><div class="line"><span class="keyword">cp</span> -r xhprof_html xhprof_lib /你的web目录路径/xhprof/  （此处目的是建立数据分析目录，可将此目录配置成虚拟主机访问）  </div><div class="line"><span class="keyword">cd</span> extension/  </div><div class="line">/usr/local/webserver/php/bin/phpize  </div><div class="line">../configure  --with-php-config=/usr/local/webserver/php/bin/php-config   (php-config的路径)  </div><div class="line"><span class="keyword">make</span> &amp;&amp; <span class="keyword">make</span> install</div></pre></td></tr></table></figure>
 <h4 id="第二步"><a href="#第二步" class="headerlink" title="第二步"></a>第二步</h4><p>php.ini中添加<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">extension=xhprof.<span class="keyword">so</span></div><div class="line">xhprof.output_dir=/www/logs/xhprof  #数据输出目录，没有需建立</div></pre></td></tr></table></figure></p>
 <h4 id="第三步"><a href="#第三步" class="headerlink" title="第三步"></a>第三步</h4><p>重启nginx、php</p>
