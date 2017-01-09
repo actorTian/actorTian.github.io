@@ -66,15 +66,13 @@ echo ''.$url.'';
 ### 改进：使全服务器所有站点可使用？
 原理：利用php.ini中的auto_prepend_file 配置项实现全服站点文件注入。
 Php.ini中 配置 auto_prepend_file = /alidata/www/xhprof/index.php（我们需要注入的文件）
-然后注意针对apache和ngixn有所不同，可利用服务器配置文件方式进行文件引入，也可利用.htaccess文件方式。
+另外还有服务器方式引入文件，注意针对apache和ngixn有所不同，可利用服务器配置文件方式进行文件引入，也可利用.htaccess文件方式。
 
-#### 服务器方式：
+#### 服务器方式（可基于站点配置）：
 ```php
 //nginx: fastcgi_param PHP_VALUE "auto_prepend_file=/alidata/www/xhprof/index.php";
-// apache好像不需要处理了
-重启服务器。
 ```
-#### .htaccess方式：
+#### .htaccess方式（配置更加灵活，但耗费解析时间）：
 在需要引入xhprof的文件夹中创建.htaccess文件，并设置如下内容
 ```vim
 php_value auto_prepend_file "/home/fdipzone/header.php"  
