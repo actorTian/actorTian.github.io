@@ -1086,9 +1086,408 @@
 
 
     
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/08/14/什么是守护进程？/" itemprop="url">
+                  什么是守护进程？
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-14T21:11:32+08:00" content="2016-08-14">
+              2016-08-14
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/14/什么是守护进程？/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/14/什么是守护进程？/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>作者：cndiviner<br>链接：<a href="https://www.zhihu.com/question/38609004/answer/77190522" target="_blank" rel="external">https://www.zhihu.com/question/38609004/answer/77190522</a><br>来源：知乎<br>著作权归作者所有，转载请联系作者获得授权。</p>
+<p>守护进程是在后台运行不受终端控制的进程（如输入、输出等），一般的网络服务都是以守护进程的方式运行。守护进程脱离终端的主要原因有两点：<br>（1）用来启动守护进程的终端在启动守护进程之后，需要执行其他任务。<br>（2）（如其他用户登录该终端后，以前的守护进程的错误信息不应出现）由终端上的一些键所产生的信号（如中断信号），不应对以前从该终端上启动的任何守护进程造成影响。要注意守护进程与后台运行程序（即加＆启动的程序）的区别。</p>
+<h3 id="创建守护进程的过程："><a href="#创建守护进程的过程：" class="headerlink" title="创建守护进程的过程："></a>创建守护进程的过程：</h3><ol>
+<li>调用fork创建子进程。父进程终止，让子进程在后台继续执行。</li>
+<li>子进程调用setsid产生新会话期并失去控制终端调用setsid()使子进程进程成为新会话组长和新的进程组长，同时失去控制终端。</li>
+<li>忽略SIGHUP信号。会话组长进程终止会向其他进程发该信号，造成其他进程终止。</li>
+<li>调用fork再创建子进程。子进程终止，子子进程继续执行，由于子子进程不再是会话组长，从而禁止进程重新打开控制终端。</li>
+<li>改变当前工作目录为根目录。一般将工作目录改变到根目录，这样进程的启动目录也可以被卸掉。</li>
+<li>关闭打开的文件描述符，打开一个空设备，并复制到标准输出和标准错误上。 避免调用的一些库函数依然向屏幕输出信息。</li>
+<li>重设文件创建掩码清除从父进程那里继承来的文件创建掩码，设为0。</li>
+<li>用openlog函数建立与syslogd的连接。</li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/15/apache工作模式解读：prefork、worker/" itemprop="url">
+                  apache工作模式解读：prefork、worker
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-15T22:18:32+08:00" content="2016-07-15">
+              2016-07-15
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/15/apache工作模式解读：prefork、worker/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/15/apache工作模式解读：prefork、worker/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="prefork模式"><a href="#prefork模式" class="headerlink" title="prefork模式"></a>prefork模式</h3><p>这个多路处理模块(MPM)实现了一个非线程型的、预派生的web服务器，它的工作方式类似于Apache 1.3。它适合于没有线程安全库，需要避免线程兼容性问题的系统。它是要求将每个请求相互独立的情况下最好的MPM，这样若一个请求出现问题就不会影响到其他请求。</p>
+<p>这个MPM具有很强的自我调节能力，只需要很少的配置指令调整。最重要的是将MaxClients设置为一个足够大的数值以处理潜在的请求高峰，同时又不能太大，以致需要使用的内存超出物理内存的大小。</p>
+<h3 id="worker模式"><a href="#worker模式" class="headerlink" title="worker模式"></a>worker模式</h3><p>此多路处理模块(MPM)使网络服务器支持混合的多线程多进程。由于使用线程来处理请求，所以可以处理海量请求，而系统资源的开销小于基于进程的MPM。但是，它也使用了多进程，每个进程又有多个线程，以获得基于进程的MPM的稳定性。</p>
+<p>控制这个MPM的最重要的指令是，控制每个子进程允许建立的线程数的ThreadsPerChild指令，和控制允许建立的总线程数的MaxClients指令。</p>
+<p>prefork和worker模式的切换<br>1.将当前的prefork模式启动文件改名<br>mv httpd httpd.prefork<br>2.将worker模式的启动文件改名<br>mv httpd.worker httpd<br>3.修改Apache配置文件<br>vi /usr/local/apache2/conf/extra/httpd-mpm.conf<br>找到里边的如下一段，可适当修改负载等参数：</p>
+<ifmodule mpm_worker_module=""><br>StartServers 2<br>MaxClients 150<br>MinSpareThreads 25<br>MaxSpareThreads 75<br>ThreadsPerChild 25<br>MaxRequestsPerChild 0<br></ifmodule><br>4.重新启动服务<br>/usr/local/apache2/bin/apachectl restart<br>即可换成worker方式启动apache2<br><br>处于稳定性和安全性考虑，不建议更换apache2的运行方式，使用系统默认prefork即可。另外很多php模块不能工作在worker模式下，例如redhat linux自带的php也不能支持线程安全。所以最好不要切换工作模式。<br><br>### prefork和worker模式的比较**<br>prefork模式使用多个子进程，每个子进程只有一个线程。每个进程在某个确定的时间只能维持一个连接。在大多数平台上，Prefork MPM在效率上要比Worker MPM要高，但是内存使用大得多。prefork的无线程设计在某些情况下将比worker更有优势：它可以使用那些没有处理好线程安全的第三方模块，并且对于那些线程调试困难的平台而言，它也更容易调试一些。<br><br>worker模式使用多个子进程，每个子进程有多个线程。每个线程在某个确定的时间只能维持一个连接。通常来说，在一个高流量的HTTP服务器上，Worker MPM是个比较好的选择，因为Worker MPM的内存使用比Prefork MPM要低得多。但worker MPM也由不完善的地方，如果一个线程崩溃，整个进程就会连同其所有线程一起”死掉”.由于线程共享内存空间，所以一个程序在运行时必须被系统识别为”每个线程都是安全的”。<br><br>### 总的来说，prefork方式速度要稍高于worker，然而它需要的cpu和memory资源也稍多于woker。<br><br><br>———-<br><br><br>### prefork模式配置详解<br><ifmodule mpm_prefork_module=""><br>ServerLimit 256<br>StartServers 5<br>MinSpareServers 5<br>MaxSpareServers 10<br>MaxClients 256<br>MaxRequestsPerChild 0<br></ifmodule><br>ServerLimit<br>默认的MaxClient最大是256个线程,如果想设置更大的值，就的加上ServerLimit这个参数。20000是ServerLimit这个参数的最大值。如果需要更大，则必须编译apache,此前都是不需要重新编译Apache。<br>生效前提：必须放在其他指令的前面<br><br>StartServers<br>指定服务器启动时建立的子进程数量，prefork默认为5。<br><br>MinSpareServers<br>指定空闲子进程的最小数量，默认为5。如果当前空闲子进程数少于MinSpareServers ，那么Apache将以最大每秒一个的速度产生新的子进程。此参数不要设的太大。<br><br>MaxSpareServers<br>设置空闲子进程的最大数量，默认为10。如果当前有超过MaxSpareServers数量的空闲子进程，那么父进程将杀死多余的子进程。此参数不要设的太大。如果你将该指令的值设置为比MinSpareServers小，Apache将会自动将其修改成”MinSpareServers+1”。<br><br>MaxClients<br>限定同一时间客户端最大接入请求的数量(单个进程并发线程数)，默认为256。任何超过MaxClients限制的请求都将进入等候队列,一旦一个链接被释放，队列中的请求将得到服务。要增大这个值，你必须同时增大ServerLimit。<br><br>MaxRequestsPerChild<br>每个子进程在其生存期内允许伺服的最大请求数量，默认为10000.到达MaxRequestsPerChild的限制后，子进程将会结束。如果MaxRequestsPerChild为”0”，子进程将永远不会结束。将MaxRequestsPerChild设置成非零值有两个好处：<br>1.可以防止(偶然的)内存泄漏无限进行，从而耗尽内存。<br>2.给进程一个有限寿命，从而有助于当服务器负载减轻的时候减少活动进程的数量。<br><br><br>———-<br><br><br>### worker模式配置详解<br><ifmodule mpm_worker_module=""><br>StartServers 2<br>MaxClients 150<br>MinSpareThreads 25<br>MaxSpareThreads 75<br>ThreadsPerChild 25<br>MaxRequestsPerChild 0<br></ifmodule>
+
+<p>StartServers<br>服务器启动时建立的子进程数，默认值是”3”。</p>
+<p>MaxClients<br>允许同时伺服的最大接入请求数量(最大线程数量)。任何超过MaxClients限制的请求都将进入等候队列。默认值是”400”,16(ServerLimit)乘以25(ThreadsPerChild)的结果。因此要增加MaxClients的时候，你必须同时增加ServerLimit的值。</p>
+<p>MinSpareThreads<br>最小空闲线程数,默认值是”75”。这个MPM将基于整个服务器监视空闲线程数。如果服务器中总的空闲线程数太少，子进程将产生新的空闲线程。</p>
+<p>MaxSpareThreads<br>设置最大空闲线程数。默认值是”250”。这个MPM将基于整个服务器监视空闲线程数。如果服务器中总的空闲线程数太多，子进程将杀死多余的空闲线程。MaxSpareThreads的取值范围是有限制的。Apache将按照如下限制自动修正你设置的值：worker要求其大于等于MinSpareThreads加上ThreadsPerChild的和。</p>
+<p>ThreadsPerChild<br>每个子进程建立的常驻的执行线程数。默认值是25。子进程在启动时建立这些线程后就不再建立新的线程了。</p>
+<p>MaxRequestsPerChild<br>设置每个子进程在其生存期内允许伺服的最大请求数量。到达MaxRequestsPerChild的限制后，子进程将会结束。如果MaxRequestsPerChild为”0”，子进程将永远不会结束。将MaxRequestsPerChild设置成非零值有两个好处：<br>1.可以防止(偶然的)内存泄漏无限进行，从而耗尽内存。<br>2.给进程一个有限寿命，从而有助于当服务器负载减轻的时候减少活动进程的数量。<br>注意对于KeepAlive链接，只有第一个请求会被计数。事实上，它改变了每个子进程限制最大链接数量的行为。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/15/apache工作模式解读：prefork、worker - 副本/" itemprop="url">
+                  apache工作模式解读：prefork、worker
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-15T22:18:32+08:00" content="2016-07-15">
+              2016-07-15
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/15/apache工作模式解读：prefork、worker - 副本/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/15/apache工作模式解读：prefork、worker - 副本/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="prefork模式"><a href="#prefork模式" class="headerlink" title="prefork模式"></a>prefork模式</h3><p>这个多路处理模块(MPM)实现了一个非线程型的、预派生的web服务器，它的工作方式类似于Apache 1.3。它适合于没有线程安全库，需要避免线程兼容性问题的系统。它是要求将每个请求相互独立的情况下最好的MPM，这样若一个请求出现问题就不会影响到其他请求。</p>
+<p>这个MPM具有很强的自我调节能力，只需要很少的配置指令调整。最重要的是将MaxClients设置为一个足够大的数值以处理潜在的请求高峰，同时又不能太大，以致需要使用的内存超出物理内存的大小。</p>
+<h3 id="worker模式"><a href="#worker模式" class="headerlink" title="worker模式"></a>worker模式</h3><p>此多路处理模块(MPM)使网络服务器支持混合的多线程多进程。由于使用线程来处理请求，所以可以处理海量请求，而系统资源的开销小于基于进程的MPM。但是，它也使用了多进程，每个进程又有多个线程，以获得基于进程的MPM的稳定性。</p>
+<p>控制这个MPM的最重要的指令是，控制每个子进程允许建立的线程数的ThreadsPerChild指令，和控制允许建立的总线程数的MaxClients指令。</p>
+<p>prefork和worker模式的切换<br>1.将当前的prefork模式启动文件改名<br>mv httpd httpd.prefork<br>2.将worker模式的启动文件改名<br>mv httpd.worker httpd<br>3.修改Apache配置文件<br>vi /usr/local/apache2/conf/extra/httpd-mpm.conf<br>找到里边的如下一段，可适当修改负载等参数：</p>
+<ifmodule mpm_worker_module=""><br>StartServers 2<br>MaxClients 150<br>MinSpareThreads 25<br>MaxSpareThreads 75<br>ThreadsPerChild 25<br>MaxRequestsPerChild 0<br></ifmodule><br>4.重新启动服务<br>/usr/local/apache2/bin/apachectl restart<br>即可换成worker方式启动apache2<br><br>处于稳定性和安全性考虑，不建议更换apache2的运行方式，使用系统默认prefork即可。另外很多php模块不能工作在worker模式下，例如redhat linux自带的php也不能支持线程安全。所以最好不要切换工作模式。<br><br>### prefork和worker模式的比较**<br>prefork模式使用多个子进程，每个子进程只有一个线程。每个进程在某个确定的时间只能维持一个连接。在大多数平台上，Prefork MPM在效率上要比Worker MPM要高，但是内存使用大得多。prefork的无线程设计在某些情况下将比worker更有优势：它可以使用那些没有处理好线程安全的第三方模块，并且对于那些线程调试困难的平台而言，它也更容易调试一些。<br><br>worker模式使用多个子进程，每个子进程有多个线程。每个线程在某个确定的时间只能维持一个连接。通常来说，在一个高流量的HTTP服务器上，Worker MPM是个比较好的选择，因为Worker MPM的内存使用比Prefork MPM要低得多。但worker MPM也由不完善的地方，如果一个线程崩溃，整个进程就会连同其所有线程一起”死掉”.由于线程共享内存空间，所以一个程序在运行时必须被系统识别为”每个线程都是安全的”。<br><br>### 总的来说，prefork方式速度要稍高于worker，然而它需要的cpu和memory资源也稍多于woker。<br><br><br>———-<br><br><br>### prefork模式配置详解<br><ifmodule mpm_prefork_module=""><br>ServerLimit 256<br>StartServers 5<br>MinSpareServers 5<br>MaxSpareServers 10<br>MaxClients 256<br>MaxRequestsPerChild 0<br></ifmodule><br>ServerLimit<br>默认的MaxClient最大是256个线程,如果想设置更大的值，就的加上ServerLimit这个参数。20000是ServerLimit这个参数的最大值。如果需要更大，则必须编译apache,此前都是不需要重新编译Apache。<br>生效前提：必须放在其他指令的前面<br><br>StartServers<br>指定服务器启动时建立的子进程数量，prefork默认为5。<br><br>MinSpareServers<br>指定空闲子进程的最小数量，默认为5。如果当前空闲子进程数少于MinSpareServers ，那么Apache将以最大每秒一个的速度产生新的子进程。此参数不要设的太大。<br><br>MaxSpareServers<br>设置空闲子进程的最大数量，默认为10。如果当前有超过MaxSpareServers数量的空闲子进程，那么父进程将杀死多余的子进程。此参数不要设的太大。如果你将该指令的值设置为比MinSpareServers小，Apache将会自动将其修改成”MinSpareServers+1”。<br><br>MaxClients<br>限定同一时间客户端最大接入请求的数量(单个进程并发线程数)，默认为256。任何超过MaxClients限制的请求都将进入等候队列,一旦一个链接被释放，队列中的请求将得到服务。要增大这个值，你必须同时增大ServerLimit。<br><br>MaxRequestsPerChild<br>每个子进程在其生存期内允许伺服的最大请求数量，默认为10000.到达MaxRequestsPerChild的限制后，子进程将会结束。如果MaxRequestsPerChild为”0”，子进程将永远不会结束。将MaxRequestsPerChild设置成非零值有两个好处：<br>1.可以防止(偶然的)内存泄漏无限进行，从而耗尽内存。<br>2.给进程一个有限寿命，从而有助于当服务器负载减轻的时候减少活动进程的数量。<br><br><br>———-<br><br><br>### worker模式配置详解<br><ifmodule mpm_worker_module=""><br>StartServers 2<br>MaxClients 150<br>MinSpareThreads 25<br>MaxSpareThreads 75<br>ThreadsPerChild 25<br>MaxRequestsPerChild 0<br></ifmodule>
+
+<p>StartServers<br>服务器启动时建立的子进程数，默认值是”3”。</p>
+<p>MaxClients<br>允许同时伺服的最大接入请求数量(最大线程数量)。任何超过MaxClients限制的请求都将进入等候队列。默认值是”400”,16(ServerLimit)乘以25(ThreadsPerChild)的结果。因此要增加MaxClients的时候，你必须同时增加ServerLimit的值。</p>
+<p>MinSpareThreads<br>最小空闲线程数,默认值是”75”。这个MPM将基于整个服务器监视空闲线程数。如果服务器中总的空闲线程数太少，子进程将产生新的空闲线程。</p>
+<p>MaxSpareThreads<br>设置最大空闲线程数。默认值是”250”。这个MPM将基于整个服务器监视空闲线程数。如果服务器中总的空闲线程数太多，子进程将杀死多余的空闲线程。MaxSpareThreads的取值范围是有限制的。Apache将按照如下限制自动修正你设置的值：worker要求其大于等于MinSpareThreads加上ThreadsPerChild的和。</p>
+<p>ThreadsPerChild<br>每个子进程建立的常驻的执行线程数。默认值是25。子进程在启动时建立这些线程后就不再建立新的线程了。</p>
+<p>MaxRequestsPerChild<br>设置每个子进程在其生存期内允许伺服的最大请求数量。到达MaxRequestsPerChild的限制后，子进程将会结束。如果MaxRequestsPerChild为”0”，子进程将永远不会结束。将MaxRequestsPerChild设置成非零值有两个好处：<br>1.可以防止(偶然的)内存泄漏无限进行，从而耗尽内存。<br>2.给进程一个有限寿命，从而有助于当服务器负载减轻的时候减少活动进程的数量。<br>注意对于KeepAlive链接，只有第一个请求会被计数。事实上，它改变了每个子进程限制最大链接数量的行为。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
   </section>
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
 
 
           </div>
@@ -1127,7 +1526,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">7</span>
+              <span class="site-state-item-count">11</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1144,7 +1543,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">10</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
