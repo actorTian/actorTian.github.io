@@ -86,26 +86,23 @@
 
 <meta name="description" content="PHP说简单，但是要精通也不是一件简单的事。我们除了会使用之外，还得知道它底层的工作原理。
 PHP是一种适用于web开发的动态语言。具体点说，就是一个用C语言实现包含大量组件的软件框架。更狭义点看，可以把它认为是一个强大的UI框架。
-了解PHP底层实现的目的是什么？动态语言要像用好首先得了解它，内存管理、框架模型值得我们借鉴，通过扩展开发实现更多更强大的功能，优化我们程序的性能。
-1. PHP的设">
+了解PHP底层实现的目的是什么？动态语言要像用好首先得了解它，内存管理、框架模型值得我们借鉴，通过扩展开发实现更多更强大的功能，优化我们程序的性能。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="PHP 底层的运行机制与原理">
 <meta property="og:url" content="http://yoursite.com/2016/04/27/PHP 底层的运行机制与原理/index.html">
 <meta property="og:site_name" content="学者">
 <meta property="og:description" content="PHP说简单，但是要精通也不是一件简单的事。我们除了会使用之外，还得知道它底层的工作原理。
 PHP是一种适用于web开发的动态语言。具体点说，就是一个用C语言实现包含大量组件的软件框架。更狭义点看，可以把它认为是一个强大的UI框架。
-了解PHP底层实现的目的是什么？动态语言要像用好首先得了解它，内存管理、框架模型值得我们借鉴，通过扩展开发实现更多更强大的功能，优化我们程序的性能。
-1. PHP的设">
+了解PHP底层实现的目的是什么？动态语言要像用好首先得了解它，内存管理、框架模型值得我们借鉴，通过扩展开发实现更多更强大的功能，优化我们程序的性能。">
 <meta property="og:image" content="http://7xiwze.com1.z0.glb.clouddn.com/2011_09_20_01.jpg">
 <meta property="og:image" content="http://7xiwze.com1.z0.glb.clouddn.com/2011_09_20_02.jpg">
 <meta property="og:image" content="http://7xiwze.com1.z0.glb.clouddn.com/2011_09_20_04.jpg">
-<meta property="og:updated_time" content="2017-01-10T14:51:03.995Z">
+<meta property="og:updated_time" content="2017-01-11T13:32:48.114Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="PHP 底层的运行机制与原理">
 <meta name="twitter:description" content="PHP说简单，但是要精通也不是一件简单的事。我们除了会使用之外，还得知道它底层的工作原理。
 PHP是一种适用于web开发的动态语言。具体点说，就是一个用C语言实现包含大量组件的软件框架。更狭义点看，可以把它认为是一个强大的UI框架。
-了解PHP底层实现的目的是什么？动态语言要像用好首先得了解它，内存管理、框架模型值得我们借鉴，通过扩展开发实现更多更强大的功能，优化我们程序的性能。
-1. PHP的设">
+了解PHP底层实现的目的是什么？动态语言要像用好首先得了解它，内存管理、框架模型值得我们借鉴，通过扩展开发实现更多更强大的功能，优化我们程序的性能。">
 <meta name="twitter:image" content="http://7xiwze.com1.z0.glb.clouddn.com/2011_09_20_01.jpg">
 
 
@@ -328,7 +325,7 @@ PHP是一种适用于web开发的动态语言。具体点说，就是一个用C�
       
         <p>PHP说简单，但是要精通也不是一件简单的事。我们除了会使用之外，还得知道它底层的工作原理。</p>
 <p>PHP是一种适用于web开发的动态语言。具体点说，就是一个用C语言实现包含大量组件的软件框架。更狭义点看，可以把它认为是一个强大的UI框架。</p>
-<p>了解PHP底层实现的目的是什么？动态语言要像用好首先得了解它，内存管理、框架模型值得我们借鉴，通过扩展开发实现更多更强大的功能，优化我们程序的性能。</p>
+<p>了解PHP底层实现的目的是什么？动态语言要像用好首先得了解它，内存管理、框架模型值得我们借鉴，通过扩展开发实现更多更强大的功能，优化我们程序的性能。<br><a id="more"></a></p>
 <h3 id="1-PHP的设计理念及特点"><a href="#1-PHP的设计理念及特点" class="headerlink" title="1. PHP的设计理念及特点"></a>1. PHP的设计理念及特点</h3><p>多进程模型：由于PHP是多进程模型，不同请求间互不干涉，这样保证了一个请求挂掉不会对全盘服务造成影响，当然，随着时代发展，PHP也早已支持多线程模型。<br>弱类型语言：和C/C++、Java、C#等语言不同，PHP是一门弱类型语言。一个变量的类型并不是一开始就确定不变，运行中才会确定并可能发生隐式或显式的类型转换，这种机制的灵活性在web开发中非常方便、高效，具体会在后面PHP变量中详述。<br>引擎(Zend)+组件(ext)的模式降低内部耦合。<br>中间层(sapi)隔绝web server和PHP。<br>语法简单灵活，没有太多规范。缺点导致风格混杂，但再差的程序员也不会写出太离谱危害全局的程序。</p>
 <h3 id="2-PHP的四层体系"><a href="#2-PHP的四层体系" class="headerlink" title="2. PHP的四层体系"></a>2. PHP的四层体系</h3><p>PHP的核心架构如下图：<br><img src="http://7xiwze.com1.z0.glb.clouddn.com/2011_09_20_01.jpg" alt="请输入图片描述"></p>
 <p>从图上可以看出，PHP从下到上是一个4层体系：</p>
