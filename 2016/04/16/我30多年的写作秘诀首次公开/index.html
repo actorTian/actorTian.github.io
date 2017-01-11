@@ -1,0 +1,701 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="写作," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.2" />
+
+
+
+
+
+
+<meta name="description" content="文/简书作者：樊荣强
+2003年，我在广州《新经济》杂志当首席记者兼主笔，文章写得非常顺当，也是我这辈子最快乐的时光之一段。文章想怎么写就怎么写，杂志社老总都跟我发，而且还不必修改。在杂志社干了8个月，写了20万字的文章，后来结集为《珠江三角批判》出版，文章与书也引起不少的关注。这对一个作者来说，还有这么爽的事情吗？">
+<meta property="og:type" content="article">
+<meta property="og:title" content="什么是守护进程？">
+<meta property="og:url" content="http://yoursite.com/2016/04/16/我30多年的写作秘诀首次公开/index.html">
+<meta property="og:site_name" content="学者">
+<meta property="og:description" content="文/简书作者：樊荣强
+2003年，我在广州《新经济》杂志当首席记者兼主笔，文章写得非常顺当，也是我这辈子最快乐的时光之一段。文章想怎么写就怎么写，杂志社老总都跟我发，而且还不必修改。在杂志社干了8个月，写了20万字的文章，后来结集为《珠江三角批判》出版，文章与书也引起不少的关注。这对一个作者来说，还有这么爽的事情吗？">
+<meta property="og:updated_time" content="2017-01-11T13:29:49.145Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="什么是守护进程？">
+<meta name="twitter:description" content="文/简书作者：樊荣强
+2003年，我在广州《新经济》杂志当首席记者兼主笔，文章写得非常顺当，也是我这辈子最快乐的时光之一段。文章想怎么写就怎么写，杂志社老总都跟我发，而且还不必修改。在杂志社干了8个月，写了20万字的文章，后来结集为《珠江三角批判》出版，文章与书也引起不少的关注。这对一个作者来说，还有这么爽的事情吗？">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/04/16/我30多年的写作秘诀首次公开/"/>
+
+
+  <title> 什么是守护进程？ | 学者 </title>
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">学者</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                什么是守护进程？
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-04-16T18:25:32+08:00" content="2016-04-16">
+              2016-04-16
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/读书/" itemprop="url" rel="index">
+                    <span itemprop="name">读书</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/04/16/我30多年的写作秘诀首次公开/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/16/我30多年的写作秘诀首次公开/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>文/简书作者：樊荣强</p>
+<p>2003年，我在广州《新经济》杂志当首席记者兼主笔，文章写得非常顺当，也是我这辈子最快乐的时光之一段。文章想怎么写就怎么写，杂志社老总都跟我发，而且还不必修改。在杂志社干了8个月，写了20万字的文章，后来结集为《珠江三角批判》出版，文章与书也引起不少的关注。这对一个作者来说，还有这么爽的事情吗？</p>
+<a id="more"></a>
+<p>当时的同事就有向我求教的，说我怎么这么能写。我回答，自然有我的秘诀。不过，没有下文。</p>
+<p>除了当过记者，我还当过县长的秘书，当过自由作家。我从17岁开始在《重庆日报》上开始发表文章到现在，30多年了，写了不下500万字的文章，在各种报刊发表，在各种公文里出现，在大小网站上贴着，到目前还出版了8本书。虽然我没有能够靠写作登上作家财富榜，但写作改变了我的命运，我靠一支笔，把日子过得好好的，令许多人羡慕。</p>
+<p>但是，这么多年来，我都没有专门将写作的秘诀变成文字，只是时不时的用来指导一些慕名而来的，跟我学习写作的学生。当然，他们主要都是公务员、公司秘书及一些自由写作爱好者。</p>
+<p>我的写作秘诀，适用范围跟我的职业经历相关，包括政府公文、企业公文、新闻报道、时评杂文、学术论文、学生作文，等等。</p>
+<p>当然，下面要介绍的六个秘诀，都是学校语文老师没有讲过，或者没有讲透的。讲过的剪裁、修辞等等，我就不必再说了。</p>
+<h3 id="秘诀第一，框架"><a href="#秘诀第一，框架" class="headerlink" title="秘诀第一，框架"></a>秘诀第一，框架</h3><p>虽然老师有讲过，文章可以“总-分”、“分-总”和“总-分-总”结构，写成三段式——开头、主体、结尾。可是现在绝大多数人已经将其丢到太平洋去了。原因有二：一、老师只讲的表面现象，没有交待清楚总与分的关系。二、这个结构适合于写短文章，长了就没法用。</p>
+<p>先说第一，总与分的实质关系，是问与答的关系，也就是说，开头的总，无外乎是在交待背景由来和基本观点之后，提出一个问题，后边的分，即主体部分展开几点或多方面回答。如果不明白是问与答的关系，只看到表面的总与分，就没法弄清文字前后的逻辑关系，写起来就没有章法。</p>
+<p>我的秘诀是，简单的文章，就以“总-分-总”这个三段式结构来写，我在演讲课程中把它称为<strong>“钻石法则”</strong>。即开头先提出一个观点，然后提出一个问题（这叫“立题”，后面再细说），接着主体部分展开三点至五点或更多来回答这个问题，结尾时写上几句话，或总结，或强调，或呼应，或升华。当然，主体陈述之后戛然而止也可。</p>
+<p>如果拿植物来比喻，这个“钻石法则”结构，大致与乔木相似，也就是围绕一个主要的观点（树干）入上长高，提出一个问题之后展开几个分论点（枝干），当然，这些分论点下面还得有些小的观点与事例（树叶）。﻿﻿如果不用“钻石法则”搭框架，文章就像藤蔓一样，主干不明显，且弯弯曲曲，枝叶繁多，甚至形散而神不聚，读者不得要领。</p>
+<p>以<strong>“钻石法则”</strong>框架来写一两千字的文章挺合适。你不要认为这种框架单调，星云大师的《宽心》一书及别的许多文章都是这么写的。我的这种框架的文章也不少。</p>
+<p>再说第二，长文章以简单的“总-分-总”框架来处理，就有难处，长文章则需要更复杂的结构。其实，除了这个核心框架之外，文章架构还可以有变化。我给大家介绍三种：</p>
+<p>第一种是<strong>金字塔结构</strong>，也就是用三颗小钻石来构成一颗大钻石。通俗一点来讲，就是“大三点下面还有小三点”。</p>
+<p>第二种是<strong>跳磴石结构</strong>，也可以称为“公交车线路”结构。你想像一下，要从此岸到彼岸，如果河中间没有若干跳磴石，你怎么过得去？你把每一块跳磴石都当成一个问题，而之间的距离则是在回答问题。假如你提出10个问题，回答完毕，文章就完成了。</p>
+<p>大约在20岁的时候，我买到一本美国人写的关于写作的书。书名而已经记不得了，书也弄丢了。那本书教会我一生都受用的，一种用关键词串联的写作法。打腹稿的时候，先充分的联想，想到的关键句、关键词就用笔把它写到纸上，然后进行有逻辑顺序的排列。下笔写文章的时候，就围绕那些关键词和关键句一个一个展开，关键词用完了，文章也就写完了。这个方法，差不多等同于跳蹬石的方法。</p>
+<p>第三种是<strong>意识流结构</strong>，也就是想到什么话语就写出来，如果你并不是一个思维极度跳跃的人，而且你能够相对紧密地扣紧一个主题，写这样的文章也无妨。但是，这只适合表达情绪，而不适合论述观点。</p>
+<h3 id="秘诀第二，立题"><a href="#秘诀第二，立题" class="headerlink" title="秘诀第二，立题"></a>秘诀第二，立题</h3><p>立题二字，也许你很熟悉。可是，我现在讲的跟语文老师讲的是两回事。</p>
+<p>语文老师把立题等同于立意、立论，或者叫观点鲜明，主题突出。其实，我认为这大错特错了！正是因为老师没有能够讲明白这个立题，所以不能够解决绝大多数人写作的痛苦。</p>
+<p>2010年的时候，一个大学生来跟我学习演讲，我讲到钻石法则，讲到立题，他突然就茅塞顿开，感叹道，要是早一年跟我学习，一定会考上一个更好的大学。他当时是在一个不知名的“三本”大学读书。（也就是写作《江城》一书的美国作家海斯勒支教的涪陵师范专科学校）他高考那年的作文题目就两个字“难题”，他说当时不知怎么拚凑了1000字交差。要是早学到立题，那不就是写写怎么解决难题这个立题？</p>
+<p>“立题”真正的含义，应当是指“建立问题”，将四个字缩写为两个字就叫“立题”，在形式上，它必须是一个问句。立题，就是要在整篇文章中提出一个大问题，而整篇文章其实就在回答这一个问题。</p>
+<p>主体部分不是在干别的，就是在回答所谓“立题”提出来的问题。当然，“立题”的类型也要特别地注意。不是所有问题都能够拿来做为“立题”，比如那些只需用“是”或“否”来回答的封闭式问题，就不可以做为“立题”，而只有开放式的“是什么？”、“为什么？”、“怎么办？”这三类可以长篇深入回答的问题才能做为“立题”。</p>
+<p>要特别说明的是，一篇短的文章，只需要一个或两个立题就可以了，而长篇的文章，则需要多个立题。比如你在一篇文章当中可以写，现状是什么？为什么是这个现状？怎么解决问题和达成目标？</p>
+<p>在此，我想特别说明，佛祖释迦牟尼的苦、集、灭、道“四圣谛”，给了我极大的启发，堪称醍醐灌顶。我把它命名为“释迦牟尼四圣谛思考法”。如果把“四圣谛”的内容写成一篇文章，即由四个立题组成：1、苦，众生的现状是什么（苦有哪些）？2、集，为什么是这个现状（为什么苦）？3、灭，我们的目标是什么（追求的境界是什么）？4、道，怎么实现我们的目标（怎么办）？详细的分析，请参考我的书《20天练成脱稿讲话》。</p>
+<p>立题在写作中可以有效地解决以下三个方面的问题，：第一是激发思路。当你有立题之后似乎文思泉涌，大脑中积累的知识就找到了出口。其原因在后边的关于“问题链思维”一节做更详细的回答。第二是聚焦思路。很多人感觉思路飘浮，写作的时候没有重点，甚至出现偏题的情况，就是因为没有明确的立题。第三，引导读者。这就像修辞手法当中所讲的设问，设问的作用就在于让读者跟随你来理解你所表达的观点。</p>
+<h3 id="秘诀第三，生成"><a href="#秘诀第三，生成" class="headerlink" title="秘诀第三，生成"></a>秘诀第三，生成</h3><p>这里的生成，讲的是语言的生成。写作的难题之一，是很多人干巴巴没几句话。讲话也是如此。</p>
+<p>讲语言的生成，先要明白“问题链思维”或者“问答思维”这一概念。人在清醒的时候，大脑处于三种状态：发呆、审美和思考。发呆时，脑袋一片空白；审美时，脑袋里充满意象；只有在思考的时候，脑袋里面才有语言生成。没有思考，就没有语言。</p>
+<p>那么，什么叫做思考？思考的定义是怎样的呢？从小开始，老师、父母都告诉我们，你要学会思考、勤于思考、善于思考，包括一些学校的校训就是这样写——“学会思考、学会做人”之类，但是，老师和父母都没有告诉我们什么叫思考，就像现在的剩男剩女很多，爹妈只是催促我们去谈恋爱，但是不告诉我们什么叫恋爱或者什么叫爱情，只是自己去琢磨。</p>
+<p>究竟什么叫思考呢？我经过研究，得出一个最容易理解、最容易操作，也最能够解决你的问题的定义，也就是提问然后回答。一个基本的思考单元，就是“提问-回答”。</p>
+<p>当你明白这个之后，你就能够理解我讲的问题链思维是什么了。一个基本的思考单元是“提问-回答”，持续的思考就是不断地“问-答-问-答-问-答……”。平时我们两三个人聊天的时候是在干什么呢？是在我问你答，你问我答，以及各自在自问自答，这样交替进行。</p>
+<p>聊天如此，那么，当我们一个人在思考与写作的时候是怎样的呢？就是自问自答，因为没有人跟你提问。一个人正是通过自问自答而生成语言，把它写出来就成了文章。当然，写文章的时候，我们通常都会将脑海里面那些问句给省略掉，因为这样子。文章会更简洁，文字会更流畅。偶尔会保留一些问句，也只是满足老师多使用修辞手法的要求，那个叫设问句或者反问句。</p>
+<p>一切的文章都可以分成两种文体：问答体与叙述体。形式上，前者有问有答，后面只有答没有问，即使有问句，那也只是修辞手法。我出版的第一本书《杰出顺德人——顺德企业家访谈录》就是问答体的文章合成的。其实，所有的叙述体文章都可以还原成为问答体，虽然，那些逻辑混乱的文章还原起来困难一些。</p>
+<p>我彻底领悟到问题链思维这个概念，跟我做过记者的经历有很大关系。新闻学常识说，写一条完整的新闻，必须包括“5W1H”。它是“美联社之父”斯通提出来的，5W指的是何人(Who）、何事(What)、何时(When)、何地(Where)、何因(Why)；1H指的是怎么样(How)，也就是何果。</p>
+<p>这其实就是6个基本问题。当记者的，写稿时如果不能把这6个问题向受众交待，就不称职。而且，如果采访对象向我们要一份采访提纲，我们发过去的采访提纲，不就是一堆问题吗？</p>
+<p>“问题链思维”这五个字，或者“问答思维”这四个字，是我樊荣强这一生最伟大的发现。因为有了这个发现，我倍感欣慰，死而无憾。通过这个“问答思维”，我们可以引爆思路，激活知识，生成语言，丰富话语。</p>
+<p>###　秘诀第四，对象</p>
+<p>跟前面的问题链思维相关的是有对象式写作。什么叫有对象式写作？写信，就是有对象式写作。</p>
+<p>写作模式我分为两种：一种是上帝模式，一种叫自我模式。这两种模式的差别，基本上就是，第三人称写作与第一人称写作的差别。用第三人称写作，就有点类似于上帝全知全能，把他所知道的懂得的一切，都告诉给全天下的子民。但是，面对的对象越多，你就发现没有一个具体的对象。这有点类似于谈恋爱的时候，脚踏几只船，心仪的对象很多，但是最后可能一个都得不到。</p>
+<p>用第一人称写作，许多人只是知道用“我”来叙述与表达，但他却忽略了，第一人称写作的真正好处在于，有一个明确的对象。许多人觉得写文章很难，但是给他熟悉的人写封信，似乎就变得容易了许多。这就是因为，写信的时候你老想着对方，想着对方关心些什么问题。</p>
+<p>写作的过程也是一种对话的过程。前面说过，问题链思维和有对象式写作有关系。换句话说，第一人称写作即有对象式写作，其实就是一个自问自答的过程。自问自答不是简单的自言自语，而是把写作的过程转换为与某个具体的人交流对话的过程，随时想着你是在跟某个具体的人在进行谈话，他就坐在你的对面，他关注些什么问题，你就告诉他你自己的想法和答案。我们平常所说的换位思考，在这个时候就很有用处，也就是说，你站在对方的立场，努力的想像他赞成什么，反对什么，质疑什么，希望知道什么？</p>
+<p>像写信一样有对象式的写作，一定会让你觉得，文章可以写的很长。</p>
+<h3 id="秘诀第五，概括"><a href="#秘诀第五，概括" class="headerlink" title="秘诀第五，概括"></a>秘诀第五，概括</h3><p>概括是写好文章的一个非常重要的秘诀。有很多人写文章，缺乏概括的意识，只是在做一些平淡的陈述。读完之后，读者只是收到一些散乱素材的铺陈而已。</p>
+<p>做好概括，一方面可以让你的文章展现出许多精彩绝伦的观点，有高度，也有深度。另一方面，也可以显现出广度，信息量够大。</p>
+<p>先说一方面。所谓的概括，首先与提练、总结和归纳有很大的关系。不能只是罗列素材，不能只是描述现象，一定要想小学语文老师教我们的那样，通过什么事实与现象，说明了什么，表现了什么，揭示了什么，甚至指出了什么。一定要透过事物的表象看到事物的本质，说明背后的核心、实质与规律。</p>
+<p>曾经读过非常受读者追捧的黄仁宇先生的《中国大历史》一书。坦率的讲，我并不喜欢这本书，一方面，文字的风格，并不太流畅与通俗，另一方面就是对历史事件的陈述之后，缺乏一些概括和提炼。</p>
+<p>说的再直白一点，概括，那就是要在你的文章当中，有一些格言警句出现。所谓格言警句的类型，就是一般性的概括句，用判断的方法来表述。判断句包括，简单判断和复式判断。简单判断就是用是或者不是这样的连词来造句，比如“书籍是人类进步的阶梯”。“世上没有免费的午餐。”复式判断则是用“假如……就……”、“如果……就……”、“只有……才……”之类的复式连词来造句，比如“只有努力攀登的人，才能达到事业的顶峰。”</p>
+<p>再说另一方面。前面提到过，概括的另一个重要作用就在于，展现思想的广度，要多角度分析问题，提供足够大量的信息。这里所谓的概括就和分析有关系。分析就是分开解析。我们探讨问题的时候，除了概括成一点之外，还要学会概括成两点、三点，甚至更多点。</p>
+<p>从亚里士多德所讲过的因果律来讲，通常有一因一果、一因多果和多因一果三种形式。因此，我们在对事物进行分类的时候，或者对原因进行分析的时候，或者对解决问题提出对策的时候，大多数情况下，我们都可以讲一方面，另一方面；还可以讲，三个方面、四个方面。我们在进行分解的时候，同时也在进行概括，而分解与概括的标准，无外乎就是：时间：空间、形式、状态、性质、特征、要素、过程、数量、功能、作用，等等。</p>
+<p>本文讲述我写作的六个秘诀，也就是一个分解概括的最佳例子。如果我只讲一个秘诀、一个方面，显然不足够。</p>
+<p>当然，概括提炼还有一个重要的作用，也就是在写文章的时候，分点叙述，可以让文章更加有条理和逻辑，读者读起来更加的轻松。即便你不用第一、第二、第三这样的序数词来标示，但你在其中加上一些小标题一定会更好。</p>
+<h3 id="秘诀第六，举例"><a href="#秘诀第六，举例" class="headerlink" title="秘诀第六，举例"></a>秘诀第六，举例</h3><p>举例是每个学习写作的人都一定要用的手法，除非你是写抽象的哲学著作，或者写些理工科类的学术论文。</p>
+<p>举例可以让你的文章内容丰满，文字很长或者非常非常的长，这个作用我就不用多说。我要说。举例更重要的作用在于，可以让你的文章，读起来更加的轻松，观点通俗易懂和容易被人接受。如果通篇文章都是从概念到概念，从推理到推理，都是一些抽象的说辞，大多数的读者都会感到枯燥乏味。如果你在议论当中穿插一些正反两方面的事例，读者一定会兴味盎然，而且，在潜移默化当中就接受了你的观点。</p>
+<p>如果你是写记事类的文章，当然你可能通篇都是在举例。除了少数的学术论文和那些法定公文，其实绝大部分文章都是需要举例的。</p>
+<p>我们的语文老师教我们写作文的时候也告诉我们，要学会夹叙夹议，不管是议多叙少，还是叙多议少，这里的所谓叙，差不多就是举例。</p>
+<p>举例分为两种，一种是概括举例，一种是详细举例。概括举例很简单，也就是在文章当中，引用古今中外一些名人或者普通人的观点即格言警句、定理定律、理论观点、事件概况。详细举例，这是将某个事件的全部过程，做比较详细的陈述，包括时间、地点、人物、原因、过程、结果，等等要素。</p>
+<p>当然要注意，不能为讲故事而讲故事，为举例而举例。举例的时候文字一定要适量，而且一定要紧扣你自己的观点，希望它能够证明什么，说明什么。否则就会让读者不知所云，觉得你偏离主题。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/写作/" rel="tag">#写作</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/04/09/探秘php多进程编程/" rel="next" title="探秘php多进程编程">
+                <i class="fa fa-chevron-left"></i> 探秘php多进程编程
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/04/27/PHP 底层的运行机制与原理/" rel="prev" title="PHP 底层的运行机制与原理">
+                PHP 底层的运行机制与原理 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/04/16/我30多年的写作秘诀首次公开/"
+           data-title="什么是守护进程？" data-url="http://yoursite.com/2016/04/16/我30多年的写作秘诀首次公开/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://7xiwze.com1.z0.glb.clouddn.com/50.jpg"
+               alt="Tianhao" />
+          <p class="site-author-name" itemprop="name">Tianhao</p>
+          <p class="site-description motion-element" itemprop="description">终生学习者，实践者，践行渐远。</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">18</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/actorTian" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#秘诀第一，框架"><span class="nav-number">1.</span> <span class="nav-text">秘诀第一，框架</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#秘诀第二，立题"><span class="nav-number">2.</span> <span class="nav-text">秘诀第二，立题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#秘诀第三，生成"><span class="nav-number">3.</span> <span class="nav-text">秘诀第三，生成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#秘诀第五，概括"><span class="nav-number">4.</span> <span class="nav-text">秘诀第五，概括</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#秘诀第六，举例"><span class="nav-number">5.</span> <span class="nav-text">秘诀第六，举例</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Tianhao</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.2"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"lamphao"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

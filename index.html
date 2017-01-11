@@ -249,6 +249,128 @@
             
               
                 
+                <a class="post-title-link" href="/2017/01/11/yii2的DI容器解读/" itemprop="url">
+                  yii2的DI容器解读
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-01-11T21:13:24+08:00" content="2017-01-11">
+              2017-01-11
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/01/11/yii2的DI容器解读/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/01/11/yii2的DI容器解读/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>为了降低代码耦合程度，提高项目的可维护性，Yii采用多许多当下最流行又相对成熟的设计模式，包括了依赖注入（Denpdency Injection, DI）和服务定位器（Service Locator）两种模式。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/01/11/yii2的DI容器解读/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2017/01/09/web请求处理机制中的多进程、多线程、异步IO/" itemprop="url">
                   web请求处理机制中的多进程、多线程、异步IO
                 </a>
@@ -1307,162 +1429,13 @@
 
       
         
-          
-            <p>进程间通信就是在不同进程之间传播或交换信息，那么不同进程之间存在着什么双方都可以访问的介质呢？进程的用户空间是互相独立的，一般而言是不能互相访问的，唯一的例外是共享内存区。但是，系统空间却是“公共场所”，所以内核显然可以提供这样的条件。除此以外，那就是双方都可以访问的外设了。在这个意义上，两个进程当然也可以通过磁盘上的普通文件交换信息，或者通过“注册表”或其它数据库中的某些表项和记录交换信息。广义上这也是进程间通信的手段，但是一般都不把这算作“进程间通信”。因为那些通信手段的效率太低了，而人们对进程间通信的要求是要有一定的实时性。 </p>
-<p>进程间通信主要包括<strong>管道, 系统IPC</strong>(包括消息队列,信号量,共享存储)<strong>, SOCKET</strong>.</p>
-<h3 id="管道包括三种"><a href="#管道包括三种" class="headerlink" title="管道包括三种:"></a>管道包括三种:</h3><ol>
-<li>普通管道PIPE, 通常有种限制,一是半双工,只能单向传输;二是只能在父子进程间使用.</li>
-<li>流管道s_pipe: 去除了第一种限制,可以双向传输.</li>
-<li>命名管道:name_pipe, 去除了第二种限制,可以在许多并不相关的进程之间进行通讯.</li>
-</ol>
-<h3 id="系统IPC的三种方式类同-都是使用了内核里的标识符来识别"><a href="#系统IPC的三种方式类同-都是使用了内核里的标识符来识别" class="headerlink" title="系统IPC的三种方式类同,都是使用了内核里的标识符来识别."></a>系统IPC的三种方式类同,都是使用了内核里的标识符来识别.</h3><ul>
-<li>管道( pipe)：管道是一种半双工的通信方式，数据只能单向流动，而且只能在具有亲缘关系的进程间使用。进程的亲缘关系通常是指父子进程关系。</li>
-<li>有名管道 (named pipe) ： 有名管道也是半双工的通信方式，但是它允许无亲缘关系进程间的通信。</li>
-<li>信号量( semophore ) ：<br>信号量是一个计数器，可以用来控制多个进程对共享资源的访问。它常作为一种锁机制，防止某进程正在访问共享资源时，其他进程也访问该资源。因此，主要作为进程间以及同一进程内不同线程之间的同步手段。</li>
-<li>消息队列( message queue ) ：<br>消息队列是由消息的链表，存放在内核中并由消息队列标识符标识。消息队列克服了信号传递信息少、管道只能承载无格式字节流以及缓冲区大小受限等缺点。</li>
-<li>信号 ( sinal ) ： 信号是一种比较复杂的通信方式，用于通知接收进程某个事件已经发生。</li>
-<li>共享内存( shared memory )<br>：共享内存就是映射一段能被其他进程所访问的内存，这段共享内存由一个进程创建，但多个进程都可以访问。共享内存是最快的 IPC<br>方式，它是针对其他进程间通信方式运行效率低而专门设计的。它往往与其他通信机制，如信号两，配合使用，来实现进程间的同步和通信。</li>
-<li>套接字( socket ) ： 套解口也是一种进程间通信机制，与其他通信机制不同的是，它可用于不同及其间的进程通信。</li>
-</ul>
-<h3 id="FAQ1-管道与文件描述符-文件指针的关系"><a href="#FAQ1-管道与文件描述符-文件指针的关系" class="headerlink" title="FAQ1: 管道与文件描述符,文件指针的关系?"></a>FAQ1: 管道与文件描述符,文件指针的关系?</h3><p>　　答: 其实管道的使用方法与文件类似,都能使用read,write,open等普通IO函数. 管道描述符来类似于文件描述符. 事实上, 管道使用的描述符, 文件指针和文件描述符最终都会转化成系统中SOCKET描述符. 都受到系统内核中SOCKET描述符的限制. 本质上LINUX内核源码中管道是通过空文件来实现.</p>
-<h3 id="FAQ2-管道的使用方法"><a href="#FAQ2-管道的使用方法" class="headerlink" title="FAQ2: 管道的使用方法?"></a>FAQ2: 管道的使用方法?</h3><p>　　答: 主要有下面几种方法: 1)pipe, 创建一个管道,返回2个管道描述符.通常用于父子进程之间通讯. 2)popen, pclose: 这种方式只返回一个管道描述符,常用于通信另一方是stdin or stdout; 3)mkpipe: 命名管道, 在许多进程之间进行交互.</p>
-<h3 id="FAQ3-管道与系统IPC之间的优劣比较"><a href="#FAQ3-管道与系统IPC之间的优劣比较" class="headerlink" title="FAQ3: 管道与系统IPC之间的优劣比较?"></a>FAQ3: 管道与系统IPC之间的优劣比较?</h3><p>　　答: 管道: 优点是所有的UNIX实现都支持, 并且在最后一个访问管道的进程终止后,管道就被完全删除;缺陷是管道只允许单向传输或者用于父子进程之间.<br>        系统IPC: 优点是功能强大,能在毫不相关进程之间进行通讯; 缺陷是关键字KEY_T使用了内核标识,占用了内核资源,而且只能被显式删除,而且不能使用SOCKET的一些机制,例如select,epoll等.</p>
-<h3 id="FAQ4-WINDOS进程间通信与LINUX进程间通信的关系"><a href="#FAQ4-WINDOS进程间通信与LINUX进程间通信的关系" class="headerlink" title="FAQ4: WINDOS进程间通信与LINUX进程间通信的关系?"></a>FAQ4: WINDOS进程间通信与LINUX进程间通信的关系?</h3><p>　　答: 事实上,WINDOS的进程通信大部分移植于UNIX, WINDOS的剪贴板,文件映射等都可从UNIX进程通信的共享存储中找到影子. </p>
-<h3 id="FAQ5-进程间通信与线程间通信之间的关系"><a href="#FAQ5-进程间通信与线程间通信之间的关系" class="headerlink" title="FAQ5: 进程间通信与线程间通信之间的关系?"></a>FAQ5: 进程间通信与线程间通信之间的关系?</h3><p>　　答: 因为WINDOWS运行的实体是线程, 狭义上的进程间通信其实是指分属于不同进程的线程之间的通讯.而单个进程之间的线程同步问题可归并为一种特殊的进程通信.它要用到内核支持的系统调用来保持线程之间同步. 通常用到的一些线程同步方法包括:Event, Mutex, 信号量Semaphore, 临界区资源等.</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/15/apache工作模式-prefork、worker/" itemprop="url">
-                  apache工作模式解读-prefork、worker
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-15T22:18:32+08:00" content="2016-07-15">
-              2016-07-15
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/技术/" itemprop="url" rel="index">
-                    <span itemprop="name">技术</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/15/apache工作模式-prefork、worker/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/15/apache工作模式-prefork、worker/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="prefork模式"><a href="#prefork模式" class="headerlink" title="prefork模式"></a>prefork模式</h3><p>这个多路处理模块(MPM)实现了一个非线程型的、预派生的web服务器，它的工作方式类似于Apache 1.3。它适合于没有线程安全库，需要避免线程兼容性问题的系统。它是要求将每个请求相互独立的情况下最好的MPM，这样若一个请求出现问题就不会影响到其他请求。</p>
-<p>这个MPM具有很强的自我调节能力，只需要很少的配置指令调整。最重要的是将MaxClients设置为一个足够大的数值以处理潜在的请求高峰，同时又不能太大，以致需要使用的内存超出物理内存的大小。</p>
-<h3 id="worker模式"><a href="#worker模式" class="headerlink" title="worker模式"></a>worker模式</h3><p>此多路处理模块(MPM)使网络服务器支持混合的多线程多进程。由于使用线程来处理请求，所以可以处理海量请求，而系统资源的开销小于基于进程的MPM。但是，它也使用了多进程，每个进程又有多个线程，以获得基于进程的MPM的稳定性。</p>
-<p>控制这个MPM的最重要的指令是，控制每个子进程允许建立的线程数的ThreadsPerChild指令，和控制允许建立的总线程数的MaxClients指令。</p>
-<p>prefork和worker模式的切换<br>1.将当前的prefork模式启动文件改名<br>mv httpd httpd.prefork<br>2.将worker模式的启动文件改名<br>mv httpd.worker httpd<br>3.修改Apache配置文件<br>vi /usr/local/apache2/conf/extra/httpd-mpm.conf<br>找到里边的如下一段，可适当修改负载等参数：</p>
-<ifmodule mpm_worker_module=""><br>StartServers 2<br>MaxClients 150<br>MinSpareThreads 25<br>MaxSpareThreads 75<br>ThreadsPerChild 25<br>MaxRequestsPerChild 0<br></ifmodule><br>4.重新启动服务<br>/usr/local/apache2/bin/apachectl restart<br>即可换成worker方式启动apache2<br><br>处于稳定性和安全性考虑，不建议更换apache2的运行方式，使用系统默认prefork即可。另外很多php模块不能工作在worker模式下，例如redhat linux自带的php也不能支持线程安全。所以最好不要切换工作模式。<br><br>### prefork和worker模式的比较**<br>prefork模式使用多个子进程，每个子进程只有一个线程。每个进程在某个确定的时间只能维持一个连接。在大多数平台上，Prefork MPM在效率上要比Worker MPM要高，但是内存使用大得多。prefork的无线程设计在某些情况下将比worker更有优势：它可以使用那些没有处理好线程安全的第三方模块，并且对于那些线程调试困难的平台而言，它也更容易调试一些。<br><br>worker模式使用多个子进程，每个子进程有多个线程。每个线程在某个确定的时间只能维持一个连接。通常来说，在一个高流量的HTTP服务器上，Worker MPM是个比较好的选择，因为Worker MPM的内存使用比Prefork MPM要低得多。但worker MPM也由不完善的地方，如果一个线程崩溃，整个进程就会连同其所有线程一起”死掉”.由于线程共享内存空间，所以一个程序在运行时必须被系统识别为”每个线程都是安全的”。<br><br>### 总的来说，prefork方式速度要稍高于worker，然而它需要的cpu和memory资源也稍多于woker。<br><br><br>———-<br><br><br>### prefork模式配置详解<br><ifmodule mpm_prefork_module=""><br>ServerLimit 256<br>StartServers 5<br>MinSpareServers 5<br>MaxSpareServers 10<br>MaxClients 256<br>MaxRequestsPerChild 0<br></ifmodule><br>ServerLimit<br>默认的MaxClient最大是256个线程,如果想设置更大的值，就的加上ServerLimit这个参数。20000是ServerLimit这个参数的最大值。如果需要更大，则必须编译apache,此前都是不需要重新编译Apache。<br>生效前提：必须放在其他指令的前面<br><br>StartServers<br>指定服务器启动时建立的子进程数量，prefork默认为5。<br><br>MinSpareServers<br>指定空闲子进程的最小数量，默认为5。如果当前空闲子进程数少于MinSpareServers ，那么Apache将以最大每秒一个的速度产生新的子进程。此参数不要设的太大。<br><br>MaxSpareServers<br>设置空闲子进程的最大数量，默认为10。如果当前有超过MaxSpareServers数量的空闲子进程，那么父进程将杀死多余的子进程。此参数不要设的太大。如果你将该指令的值设置为比MinSpareServers小，Apache将会自动将其修改成”MinSpareServers+1”。<br><br>MaxClients<br>限定同一时间客户端最大接入请求的数量(单个进程并发线程数)，默认为256。任何超过MaxClients限制的请求都将进入等候队列,一旦一个链接被释放，队列中的请求将得到服务。要增大这个值，你必须同时增大ServerLimit。<br><br>MaxRequestsPerChild<br>每个子进程在其生存期内允许伺服的最大请求数量，默认为10000.到达MaxRequestsPerChild的限制后，子进程将会结束。如果MaxRequestsPerChild为”0”，子进程将永远不会结束。将MaxRequestsPerChild设置成非零值有两个好处：<br>1.可以防止(偶然的)内存泄漏无限进行，从而耗尽内存。<br>2.给进程一个有限寿命，从而有助于当服务器负载减轻的时候减少活动进程的数量。<br><br><br>———-<br><br><br>### worker模式配置详解<br><ifmodule mpm_worker_module=""><br>StartServers 2<br>MaxClients 150<br>MinSpareThreads 25<br>MaxSpareThreads 75<br>ThreadsPerChild 25<br>MaxRequestsPerChild 0<br></ifmodule>
-
-<p>StartServers<br>服务器启动时建立的子进程数，默认值是”3”。</p>
-<p>MaxClients<br>允许同时伺服的最大接入请求数量(最大线程数量)。任何超过MaxClients限制的请求都将进入等候队列。默认值是”400”,16(ServerLimit)乘以25(ThreadsPerChild)的结果。因此要增加MaxClients的时候，你必须同时增加ServerLimit的值。</p>
-<p>MinSpareThreads<br>最小空闲线程数,默认值是”75”。这个MPM将基于整个服务器监视空闲线程数。如果服务器中总的空闲线程数太少，子进程将产生新的空闲线程。</p>
-<p>MaxSpareThreads<br>设置最大空闲线程数。默认值是”250”。这个MPM将基于整个服务器监视空闲线程数。如果服务器中总的空闲线程数太多，子进程将杀死多余的空闲线程。MaxSpareThreads的取值范围是有限制的。Apache将按照如下限制自动修正你设置的值：worker要求其大于等于MinSpareThreads加上ThreadsPerChild的和。</p>
-<p>ThreadsPerChild<br>每个子进程建立的常驻的执行线程数。默认值是25。子进程在启动时建立这些线程后就不再建立新的线程了。</p>
-<p>MaxRequestsPerChild<br>设置每个子进程在其生存期内允许伺服的最大请求数量。到达MaxRequestsPerChild的限制后，子进程将会结束。如果MaxRequestsPerChild为”0”，子进程将永远不会结束。将MaxRequestsPerChild设置成非零值有两个好处：<br>1.可以防止(偶然的)内存泄漏无限进行，从而耗尽内存。<br>2.给进程一个有限寿命，从而有助于当服务器负载减轻的时候减少活动进程的数量。<br>注意对于KeepAlive链接，只有第一个请求会被计数。事实上，它改变了每个子进程限制最大链接数量的行为。</p>
-
-          
+          <p>进程间通信就是在不同进程之间传播或交换信息，那么不同进程之间存在着什么双方都可以访问的介质呢？进程的用户空间是互相独立的，一般而言是不能互相访问的，唯一的例外是共享内存区。但是，系统空间却是“公共场所”，所以内核显然可以提供这样的条件。除此以外，那就是双方都可以访问的外设了。在这个意义上，两个进程当然也可以通过磁盘上的普通文件交换信息，或者通过“注册表”或其它数据库中的某些表项和记录交换信息。广义上这也是进程间通信的手段，但是一般都不把这算作“进程间通信”。因为那些通信手段的效率太低了，而人们对进程间通信的要求是要有一定的实时性。 </p>
+<p>进程间通信主要包括<strong>管道, 系统IPC</strong>(包括消息队列,信号量,共享存储)<strong>, SOCKET</strong>。<br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/08/06/探秘php多进程编程 (二)/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -1534,7 +1507,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">13</span>
+              <span class="site-state-item-count">18</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1551,7 +1524,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-count">14</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

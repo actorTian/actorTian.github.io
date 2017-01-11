@@ -85,21 +85,18 @@
 
 
 <meta name="description" content="什么是CGICGI全称是“公共网关接口”(Common Gateway Interface)，HTTP服务器与你的或其它机器上的程序进行“交谈”的一种工具，其程序须运行在网络服务器上。
-CGI可以用任何一种语言编写，只要这种语言具有标准输入、输出和环境变量。如php,perl,tcl等
-什么是FastCGIFastCGI像是一个常驻(long-live)型的CGI，它可以一直执行着，只要激活后，不">
+CGI可以用任何一种语言编写，只要这种语言具有标准输入、输出和环境变量。如php,perl,tcl等">
 <meta property="og:type" content="article">
 <meta property="og:title" content="PHP｜什么是CGI, FastCGI, PHP-CGI, PHP-FPM, Spawn-FCGI">
 <meta property="og:url" content="http://yoursite.com/2016/07/13/PHP｜什么是CGI, FastCGI, PHP-CGI, PHP-FPM, Spawn-FCGI/index.html">
 <meta property="og:site_name" content="学者">
 <meta property="og:description" content="什么是CGICGI全称是“公共网关接口”(Common Gateway Interface)，HTTP服务器与你的或其它机器上的程序进行“交谈”的一种工具，其程序须运行在网络服务器上。
-CGI可以用任何一种语言编写，只要这种语言具有标准输入、输出和环境变量。如php,perl,tcl等
-什么是FastCGIFastCGI像是一个常驻(long-live)型的CGI，它可以一直执行着，只要激活后，不">
-<meta property="og:updated_time" content="2017-01-10T14:29:04.868Z">
+CGI可以用任何一种语言编写，只要这种语言具有标准输入、输出和环境变量。如php,perl,tcl等">
+<meta property="og:updated_time" content="2017-01-11T13:31:12.344Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="PHP｜什么是CGI, FastCGI, PHP-CGI, PHP-FPM, Spawn-FCGI">
 <meta name="twitter:description" content="什么是CGICGI全称是“公共网关接口”(Common Gateway Interface)，HTTP服务器与你的或其它机器上的程序进行“交谈”的一种工具，其程序须运行在网络服务器上。
-CGI可以用任何一种语言编写，只要这种语言具有标准输入、输出和环境变量。如php,perl,tcl等
-什么是FastCGIFastCGI像是一个常驻(long-live)型的CGI，它可以一直执行着，只要激活后，不">
+CGI可以用任何一种语言编写，只要这种语言具有标准输入、输出和环境变量。如php,perl,tcl等">
 
 
 
@@ -321,6 +318,7 @@ CGI可以用任何一种语言编写，只要这种语言具有标准输入、�
       
         <h3 id="什么是CGI"><a href="#什么是CGI" class="headerlink" title="什么是CGI"></a>什么是CGI</h3><p>CGI全称是“公共网关接口”(Common Gateway Interface)，HTTP服务器与你的或其它机器上的程序进行“交谈”的一种工具，其程序须运行在网络服务器上。</p>
 <p>CGI可以用任何一种语言编写，只要这种语言具有标准输入、输出和环境变量。如php,perl,tcl等</p>
+<a id="more"></a>
 <h3 id="什么是FastCGI"><a href="#什么是FastCGI" class="headerlink" title="什么是FastCGI"></a>什么是FastCGI</h3><p>FastCGI像是一个常驻(long-live)型的CGI，它可以一直执行着，只要激活后，不会每次都要花费时间去fork一次(这是CGI最为人诟病的fork-and-execute 模式)。它还支持分布式的运算, 即FastCGI程序可以在网站服务器以外的主机上执行并且接受来自其它网站服务器来的请求。</p>
 <p>FastCGI是语言无关的、可伸缩架构的CGI开放扩展，其主要行为是将CGI解释器进程保持在内存中并因此获得较高的性能。众所周知，CGI解释器的反复加载是CGI性能低下的主要原因，如果CGI解释器保持在内存中并接受FastCGI进程管理器调度，则可以提供良好的性能、伸缩性、Fail-Over特性等等。</p>
 <h3 id="FastCGI与CGI特点"><a href="#FastCGI与CGI特点" class="headerlink" title="FastCGI与CGI特点"></a>FastCGI与CGI特点</h3><ol>
@@ -430,8 +428,8 @@ Spawn-FCGI目前已经独成为一个项目，更加稳定一些，也给很多W
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/04/27/PHP 底层的运行机制与原理/" rel="next" title="PHP 底层的运行机制与原理">
-                <i class="fa fa-chevron-left"></i> PHP 底层的运行机制与原理
+              <a href="/2016/06/08/thinkphp中的行为扩展和插件机制解读/" rel="next" title="thinkphp中的行为扩展和插件机制解读">
+                <i class="fa fa-chevron-left"></i> thinkphp中的行为扩展和插件机制解读
               </a>
             
           </div>
@@ -512,7 +510,7 @@ Spawn-FCGI目前已经独成为一个项目，更加稳定一些，也给很多W
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">13</span>
+              <span class="site-state-item-count">18</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -529,7 +527,7 @@ Spawn-FCGI目前已经独成为一个项目，更加稳定一些，也给很多W
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-count">14</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

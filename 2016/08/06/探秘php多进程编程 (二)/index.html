@@ -90,7 +90,7 @@
 <meta property="og:url" content="http://yoursite.com/2016/08/06/探秘php多进程编程 (二)/index.html">
 <meta property="og:site_name" content="学者">
 <meta property="og:description" content="进程间通信就是在不同进程之间传播或交换信息，那么不同进程之间存在着什么双方都可以访问的介质呢？进程的用户空间是互相独立的，一般而言是不能互相访问的，唯一的例外是共享内存区。但是，系统空间却是“公共场所”，所以内核显然可以提供这样的条件。除此以外，那就是双方都可以访问的外设了。在这个意义上，两个进程当然也可以通过磁盘上的普通文件交换信息，或者通过“注册表”或其它数据库中的某些表项和记录交换信息。广义">
-<meta property="og:updated_time" content="2017-01-10T14:50:24.109Z">
+<meta property="og:updated_time" content="2017-01-11T13:31:46.082Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="探秘php多进程编程 (二)">
 <meta name="twitter:description" content="进程间通信就是在不同进程之间传播或交换信息，那么不同进程之间存在着什么双方都可以访问的介质呢？进程的用户空间是互相独立的，一般而言是不能互相访问的，唯一的例外是共享内存区。但是，系统空间却是“公共场所”，所以内核显然可以提供这样的条件。除此以外，那就是双方都可以访问的外设了。在这个意义上，两个进程当然也可以通过磁盘上的普通文件交换信息，或者通过“注册表”或其它数据库中的某些表项和记录交换信息。广义">
@@ -314,7 +314,7 @@
 
       
         <p>进程间通信就是在不同进程之间传播或交换信息，那么不同进程之间存在着什么双方都可以访问的介质呢？进程的用户空间是互相独立的，一般而言是不能互相访问的，唯一的例外是共享内存区。但是，系统空间却是“公共场所”，所以内核显然可以提供这样的条件。除此以外，那就是双方都可以访问的外设了。在这个意义上，两个进程当然也可以通过磁盘上的普通文件交换信息，或者通过“注册表”或其它数据库中的某些表项和记录交换信息。广义上这也是进程间通信的手段，但是一般都不把这算作“进程间通信”。因为那些通信手段的效率太低了，而人们对进程间通信的要求是要有一定的实时性。 </p>
-<p>进程间通信主要包括<strong>管道, 系统IPC</strong>(包括消息队列,信号量,共享存储)<strong>, SOCKET</strong>.</p>
+<p>进程间通信主要包括<strong>管道, 系统IPC</strong>(包括消息队列,信号量,共享存储)<strong>, SOCKET</strong>。<br><a id="more"></a></p>
 <h3 id="管道包括三种"><a href="#管道包括三种" class="headerlink" title="管道包括三种:"></a>管道包括三种:</h3><ol>
 <li>普通管道PIPE, 通常有种限制,一是半双工,只能单向传输;二是只能在父子进程间使用.</li>
 <li>流管道s_pipe: 去除了第一种限制,可以双向传输.</li>
@@ -365,8 +365,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/07/15/apache工作模式-prefork、worker/" rel="next" title="apache工作模式解读-prefork、worker">
-                <i class="fa fa-chevron-left"></i> apache工作模式解读-prefork、worker
+              <a href="/2016/07/16/科普-类的反射/" rel="next" title="科普-类的反射">
+                <i class="fa fa-chevron-left"></i> 科普-类的反射
               </a>
             
           </div>
@@ -447,7 +447,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">13</span>
+              <span class="site-state-item-count">18</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -464,7 +464,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-count">14</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

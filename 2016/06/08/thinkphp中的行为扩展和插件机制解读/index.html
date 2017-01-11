@@ -1,0 +1,654 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="php,thinkphp," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.2" />
+
+
+
+
+
+
+<meta name="description" content="在立即行为扩展和插件机制之前必须先来了解另外一个知识点。
+什么是钩子？就像我们的房间，柜子上或者门上总有那么一个钩子，它的作用很明显，能够挂东西。我们可以挂上一个包包，或者一件衣服，或者一条耳机线。当你不想要某个挂件、衣服时，取下来即可。并不会破坏原有的袋子或者衣服的功能。你挂与不挂，钩子就在那里。回归到我们的程序，里面的钩子也是同样的理解。我们在程序中放了一个钩子，可以挂上某些轻量级单一的功能。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="thinkphp中的行为扩展和插件机制解读">
+<meta property="og:url" content="http://yoursite.com/2016/06/08/thinkphp中的行为扩展和插件机制解读/index.html">
+<meta property="og:site_name" content="学者">
+<meta property="og:description" content="在立即行为扩展和插件机制之前必须先来了解另外一个知识点。
+什么是钩子？就像我们的房间，柜子上或者门上总有那么一个钩子，它的作用很明显，能够挂东西。我们可以挂上一个包包，或者一件衣服，或者一条耳机线。当你不想要某个挂件、衣服时，取下来即可。并不会破坏原有的袋子或者衣服的功能。你挂与不挂，钩子就在那里。回归到我们的程序，里面的钩子也是同样的理解。我们在程序中放了一个钩子，可以挂上某些轻量级单一的功能。">
+<meta property="og:updated_time" content="2017-01-11T13:31:25.722Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="thinkphp中的行为扩展和插件机制解读">
+<meta name="twitter:description" content="在立即行为扩展和插件机制之前必须先来了解另外一个知识点。
+什么是钩子？就像我们的房间，柜子上或者门上总有那么一个钩子，它的作用很明显，能够挂东西。我们可以挂上一个包包，或者一件衣服，或者一条耳机线。当你不想要某个挂件、衣服时，取下来即可。并不会破坏原有的袋子或者衣服的功能。你挂与不挂，钩子就在那里。回归到我们的程序，里面的钩子也是同样的理解。我们在程序中放了一个钩子，可以挂上某些轻量级单一的功能。">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/06/08/thinkphp中的行为扩展和插件机制解读/"/>
+
+
+  <title> thinkphp中的行为扩展和插件机制解读 | 学者 </title>
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">学者</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                thinkphp中的行为扩展和插件机制解读
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-08T15:58:11+08:00" content="2016-06-08">
+              2016-06-08
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/06/08/thinkphp中的行为扩展和插件机制解读/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/08/thinkphp中的行为扩展和插件机制解读/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在立即行为扩展和插件机制之前必须先来了解另外一个知识点。</p>
+<h3 id="什么是钩子？"><a href="#什么是钩子？" class="headerlink" title="什么是钩子？"></a>什么是钩子？</h3><p>就像我们的房间，柜子上或者门上总有那么一个钩子，它的作用很明显，能够挂东西。我们可以挂上一个包包，或者一件衣服，或者一条耳机线。当你不想要某个挂件、衣服时，取下来即可。并不会破坏原有的袋子或者衣服的功能。<br>你挂与不挂，钩子就在那里。<br>回归到我们的程序，里面的钩子也是同样的理解。我们在程序中放了一个钩子，可以挂上某些轻量级单一的功能。例如加个统计，或者发个邮件，或者挂上一个编辑器。再回归正题，献上代码。</p>
+<a id="more"></a>
+<h3 id="ThinkPHP中的行为"><a href="#ThinkPHP中的行为" class="headerlink" title="ThinkPHP中的行为"></a>ThinkPHP中的行为</h3><p>加载标签与类之间的对应关系<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 加载模式行为定义</span></div><div class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($mode[<span class="string">'tags'</span>])) &#123;</div><div class="line">      Hook::import(is_array($mode[<span class="string">'tags'</span>])?$mode[<span class="string">'tags'</span>]:<span class="keyword">include</span> $mode[<span class="string">'tags'</span>]);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>在ThinkPHP/Mode/common.php中tags标签中定义<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="string">'tags'</span>  =&gt;  <span class="keyword">array</span>(</div><div class="line">        <span class="string">'app_begin'</span>     =&gt;  <span class="keyword">array</span>(</div><div class="line">            <span class="string">'Behavior\ReadHtmlCache'</span>, <span class="comment">// 读取静态缓存</span></div><div class="line">        ),</div><div class="line">        <span class="string">'app_end'</span>       =&gt;  <span class="keyword">array</span>(</div><div class="line">            <span class="string">'Behavior\ShowPageTrace'</span>, <span class="comment">// 页面Trace显示</span></div><div class="line">        ),</div><div class="line">        <span class="string">'view_parse'</span>    =&gt;  <span class="keyword">array</span>(</div><div class="line">            <span class="string">'Behavior\ParseTemplate'</span>, <span class="comment">// 模板解析 支持PHP、内置模板引擎和第三方模板引擎</span></div><div class="line">        ),</div><div class="line">        <span class="string">'template_filter'</span>=&gt; <span class="keyword">array</span>(</div><div class="line">            <span class="string">'Behavior\ContentReplace'</span>, <span class="comment">// 模板输出替换</span></div><div class="line">        ),</div><div class="line">        <span class="string">'view_filter'</span>   =&gt;  <span class="keyword">array</span>(</div><div class="line">            <span class="string">'Behavior\WriteHtmlCache'</span>, <span class="comment">// 写入静态缓存</span></div><div class="line">        ),</div><div class="line">    )</div></pre></td></tr></table></figure></p>
+<p>重头戏就在这里了，先说一下tp行为的执行入口是 run()方法，触发钩子时会自动执行行为类里的run()方法。<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**App.class.php中程序执行调用</span></div><div class="line">   * 运行应用实例 入口文件使用的快捷方法</div><div class="line">   * <span class="doctag">@access</span> public</div><div class="line">   * <span class="doctag">@return</span> void</div><div class="line">   */</div><div class="line">  <span class="keyword">static</span> <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">      <span class="comment">// 应用初始化标签</span></div><div class="line">      Hook::listen(<span class="string">'app_init'</span>);</div><div class="line">      App::init();</div><div class="line">      <span class="comment">// 应用开始标签</span></div><div class="line">      Hook::listen(<span class="string">'app_begin'</span>); <span class="comment">//我们就分析这个了，Hook类（负责实现行为和插件的排头兵）监听了app_begein行为。通过common.php中的tags我们确定了是'Behavior\ReadHtmlCache'类，程序找到它之后就会执行run()方法。</span></div><div class="line">      <span class="comment">// Session初始化</span></div><div class="line">      <span class="keyword">if</span>(!IS_CLI)&#123;</div><div class="line">          session(C(<span class="string">'SESSION_OPTIONS'</span>));</div><div class="line">      &#125;</div><div class="line">      <span class="comment">// 记录应用初始化时间</span></div><div class="line">      G(<span class="string">'initTime'</span>);</div><div class="line">      App::exec();</div><div class="line">      <span class="comment">// 应用结束标签</span></div><div class="line">      Hook::listen(<span class="string">'app_end'</span>);</div><div class="line">      <span class="keyword">return</span> ;</div><div class="line">  &#125;</div></pre></td></tr></table></figure></p>
+<p>通过钩子+行为，我们发现要扩展程序的行为很简单，只需要扩展相应的行为，和修改tags配置就好了。</p>
+<h3 id="那什么又是插件？"><a href="#那什么又是插件？" class="headerlink" title="那什么又是插件？"></a>那什么又是插件？</h3><p>插件是用于扩展系统的功能的一些独立“组件”。相比于行为（只有一个run()方法入口），插件类中可有多个入口。例如可以附上安装，卸载，启用，禁用等方法入口。<br>就像我们在文章编辑中放了个编辑器钩子，我们可以通过这个这个钩子可以挂上ueditor,kindeditor。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/php/" rel="tag">#php</a>
+          
+            <a href="/tags/thinkphp/" rel="tag">#thinkphp</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/05/10/设计模式六大原则/" rel="next" title="设计模式六大原则">
+                <i class="fa fa-chevron-left"></i> 设计模式六大原则
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/07/13/PHP｜什么是CGI, FastCGI, PHP-CGI, PHP-FPM, Spawn-FCGI/" rel="prev" title="PHP｜什么是CGI, FastCGI, PHP-CGI, PHP-FPM, Spawn-FCGI">
+                PHP｜什么是CGI, FastCGI, PHP-CGI, PHP-FPM, Spawn-FCGI <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/06/08/thinkphp中的行为扩展和插件机制解读/"
+           data-title="thinkphp中的行为扩展和插件机制解读" data-url="http://yoursite.com/2016/06/08/thinkphp中的行为扩展和插件机制解读/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://7xiwze.com1.z0.glb.clouddn.com/50.jpg"
+               alt="Tianhao" />
+          <p class="site-author-name" itemprop="name">Tianhao</p>
+          <p class="site-description motion-element" itemprop="description">终生学习者，实践者，践行渐远。</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">18</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/actorTian" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是钩子？"><span class="nav-number">1.</span> <span class="nav-text">什么是钩子？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ThinkPHP中的行为"><span class="nav-number">2.</span> <span class="nav-text">ThinkPHP中的行为</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#那什么又是插件？"><span class="nav-number">3.</span> <span class="nav-text">那什么又是插件？</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Tianhao</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.2"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"lamphao"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
