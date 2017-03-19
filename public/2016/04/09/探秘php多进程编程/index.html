@@ -1,0 +1,647 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="php," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.2" />
+
+
+
+
+
+
+<meta name="description" content="本人小说迷，基本在线看先说，被弹窗，小人图等信息刺激太大，决心自己造个阅读器，采用php多进程爬虫技术来丰满自己的库，并邮件自动更新提醒。到这里，就先要探秘一下php的多进程编程。基于LINUX的PHP扩展PCNTL可以提供多进程编程。再探寻过程中，发现多进程的问题处理上重点关注几个方面：1控制进程数量2处理潜在产生僵尸进程或孤儿进程3父进程阻塞难以获得更大的并发效果">
+<meta property="og:type" content="article">
+<meta property="og:title" content="探秘php多进程编程">
+<meta property="og:url" content="http://yoursite.com/2016/04/09/探秘php多进程编程/index.html">
+<meta property="og:site_name" content="学者">
+<meta property="og:description" content="本人小说迷，基本在线看先说，被弹窗，小人图等信息刺激太大，决心自己造个阅读器，采用php多进程爬虫技术来丰满自己的库，并邮件自动更新提醒。到这里，就先要探秘一下php的多进程编程。基于LINUX的PHP扩展PCNTL可以提供多进程编程。再探寻过程中，发现多进程的问题处理上重点关注几个方面：1控制进程数量2处理潜在产生僵尸进程或孤儿进程3父进程阻塞难以获得更大的并发效果">
+<meta property="og:updated_time" content="2017-01-11T13:33:04.520Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="探秘php多进程编程">
+<meta name="twitter:description" content="本人小说迷，基本在线看先说，被弹窗，小人图等信息刺激太大，决心自己造个阅读器，采用php多进程爬虫技术来丰满自己的库，并邮件自动更新提醒。到这里，就先要探秘一下php的多进程编程。基于LINUX的PHP扩展PCNTL可以提供多进程编程。再探寻过程中，发现多进程的问题处理上重点关注几个方面：1控制进程数量2处理潜在产生僵尸进程或孤儿进程3父进程阻塞难以获得更大的并发效果">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/04/09/探秘php多进程编程/"/>
+
+
+  <title> 探秘php多进程编程 | 学者 </title>
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">学者</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                探秘php多进程编程
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-04-09T17:31:19+08:00" content="2016-04-09">
+              2016-04-09
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/04/09/探秘php多进程编程/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/09/探秘php多进程编程/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本人小说迷，基本在线看先说，被弹窗，小人图等信息刺激太大，决心自己造个阅读器，采用php多进程爬虫技术来丰满自己的库，并邮件自动更新提醒。到这里，就先要探秘一下php的多进程编程。基于LINUX的PHP扩展PCNTL可以提供多进程编程。再探寻过程中，发现多进程的问题处理上重点关注几个方面：<br><strong>1控制进程数量</strong><br><strong>2处理潜在产生僵尸进程或孤儿进程</strong><br><strong>3父进程阻塞难以获得更大的并发效果</strong><br><a id="more"></a></p>
+<blockquote>
+<p>PCNTL原理:FORK,FORK编程的大概原理是，每次调用fork函数，操作系统就会产生一个子进程，儿子进程所有的堆栈信息都是原封不动复制父进程的，而在fork之后，父进程与子进程实际上是相互独立的，父子进程不会相互影响。也就是说，fork调用位置之前的所有变量，父进程和子进程是一样的，但fork之后则取决于各自的动作，且数据也是独立的；因为数据已经完整的复制给了子进程。而唯一能够区分父子进程的方法就是判断fork的返回值。如果为0，表示是子进程，如果为正数，表示为父进程，且该正数为子进程的PID（进程号），而如果是-1，表示子进程创建失败。</p>
+</blockquote>
+<h3 id="举个栗子-》1-直接方式：pcntl-php"><a href="#举个栗子-》1-直接方式：pcntl-php" class="headerlink" title="举个栗子=》1.直接方式：pcntl.php"></a>举个栗子=》1.直接方式：pcntl.php</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">echo</span> <span class="string">"parent start,pid"</span>.getmypid().<span class="string">"\n"</span>;</div><div class="line">        say();</div><div class="line">        <span class="keyword">for</span>($i=<span class="number">0</span>; $i&lt;<span class="number">3</span>; $i++)&#123;</div><div class="line">                $pid = pcntl_fork();</div><div class="line">                <span class="keyword">if</span>($pid==-<span class="string">"-1"</span>)&#123;</div><div class="line">                        <span class="keyword">die</span>(<span class="string">"fork fail"</span>);</div><div class="line">                &#125;<span class="keyword">else</span> <span class="keyword">if</span>($pid &gt; <span class="number">0</span>)&#123;</div><div class="line">                        <span class="keyword">echo</span> <span class="string">"parent here \n"</span>;</div><div class="line">                        <span class="keyword">for</span>($k=<span class="number">0</span>; $k&lt;<span class="number">2</span>; $k++)&#123;</div><div class="line">                                say();</div><div class="line">                        &#125;</div><div class="line">                &#125;<span class="keyword">else</span> <span class="keyword">if</span>($pid==<span class="string">"0"</span>)&#123;</div><div class="line">                        <span class="keyword">echo</span> <span class="string">"child here,my pid is "</span>.getmypid().<span class="string">"\n"</span>;</div><div class="line">                        <span class="keyword">for</span>($j=<span class="number">0</span>; $j&lt;<span class="number">5</span>; $j++)&#123;</div><div class="line">                                say();</div><div class="line">                        &#125;</div><div class="line">                        <span class="keyword">exit</span>;</div><div class="line">                &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="function"><span class="keyword">function</span> <span class="title">say</span><span class="params">()</span></span>&#123;</div><div class="line">                <span class="keyword">echo</span> getmypid().<span class="string">"\t"</span>.date(<span class="string">"y-m-d H:i:s"</span>,time()).<span class="string">"\n"</span>;</div><div class="line">                sleep(<span class="number">1</span>);</div><div class="line">        &#125;</div></pre></td></tr></table></figure>
+<h4 id="结果："><a href="#结果：" class="headerlink" title="结果："></a>结果：</h4><figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"># php -<span class="keyword">f</span> pcntl.php</div><div class="line">parent start,pid110614</div><div class="line"><span class="number">110614</span>  <span class="number">16</span>-<span class="number">08</span>-<span class="number">05</span> <span class="number">11</span>:<span class="number">54</span>:<span class="number">43</span></div><div class="line">parent here </div><div class="line"><span class="number">110614</span>  <span class="number">16</span>-<span class="number">08</span>-<span class="number">05</span> <span class="number">11</span>:<span class="number">54</span>:<span class="number">44</span></div><div class="line">child here,my pid <span class="keyword">is</span> <span class="number">110615</span></div><div class="line"><span class="number">110615</span>  <span class="number">16</span>-<span class="number">08</span>-<span class="number">05</span> <span class="number">11</span>:<span class="number">54</span>:<span class="number">44</span></div><div class="line"><span class="number">110614</span>  <span class="number">16</span>-<span class="number">08</span>-<span class="number">05</span> <span class="number">11</span>:<span class="number">54</span>:<span class="number">45</span></div><div class="line"><span class="number">110615</span>  <span class="number">16</span>-<span class="number">08</span>-<span class="number">05</span> <span class="number">11</span>:<span class="number">54</span>:<span class="number">45</span></div><div class="line">parent here </div><div class="line"><span class="number">110614</span>  <span class="number">16</span>-<span class="number">08</span>-<span class="number">05</span> <span class="number">11</span>:<span class="number">54</span>:<span class="number">46</span></div><div class="line"><span class="number">110615</span>  <span class="number">16</span>-<span class="number">08</span>-<span class="number">05</span> <span class="number">11</span>:<span class="number">54</span>:<span class="number">46</span></div><div class="line">child here,my pid <span class="keyword">is</span> <span class="number">110616</span></div><div class="line"><span class="number">110616</span>  <span class="number">16</span>-<span class="number">08</span>-<span class="number">05</span> <span class="number">11</span>:<span class="number">54</span>:<span class="number">46</span></div><div class="line"><span class="number">110614</span>  <span class="number">16</span>-<span class="number">08</span>-<span class="number">05</span> <span class="number">11</span>:<span class="number">54</span>:<span class="number">47</span></div><div class="line"><span class="number">110615</span>  <span class="number">16</span>-<span class="number">08</span>-<span class="number">05</span> <span class="number">11</span>:<span class="number">54</span>:<span class="number">47</span></div><div class="line"><span class="number">110616</span>  <span class="number">16</span>-<span class="number">08</span>-<span class="number">05</span> <span class="number">11</span>:<span class="number">54</span>:<span class="number">47</span></div><div class="line">parent here </div><div class="line"><span class="number">110614</span>  <span class="number">16</span>-<span class="number">08</span>-<span class="number">05</span> <span class="number">11</span>:<span class="number">54</span>:<span class="number">48</span></div><div class="line"><span class="number">110615</span>  <span class="number">16</span>-<span class="number">08</span>-<span class="number">05</span> <span class="number">11</span>:<span class="number">54</span>:<span class="number">48</span></div><div class="line">child here,my pid <span class="keyword">is</span> <span class="number">110617</span></div><div class="line"><span class="number">110617</span>  <span class="number">16</span>-<span class="number">08</span>-<span class="number">05</span> <span class="number">11</span>:<span class="number">54</span>:<span class="number">48</span></div><div class="line"><span class="number">110616</span>  <span class="number">16</span>-<span class="number">08</span>-<span class="number">05</span> <span class="number">11</span>:<span class="number">54</span>:<span class="number">48</span></div><div class="line"><span class="number">110614</span>  <span class="number">16</span>-<span class="number">08</span>-<span class="number">05</span> <span class="number">11</span>:<span class="number">54</span>:<span class="number">49</span></div><div class="line"><span class="number">110617</span>  <span class="number">16</span>-<span class="number">08</span>-<span class="number">05</span> <span class="number">11</span>:<span class="number">54</span>:<span class="number">49</span></div><div class="line"><span class="number">110616</span>  <span class="number">16</span>-<span class="number">08</span>-<span class="number">05</span> <span class="number">11</span>:<span class="number">54</span>:<span class="number">49</span></div><div class="line">[root@localhost default]# <span class="number">110617</span>    <span class="number">16</span>-<span class="number">08</span>-<span class="number">05</span> <span class="number">11</span>:<span class="number">54</span>:<span class="number">50</span></div><div class="line"><span class="number">110616</span>  <span class="number">16</span>-<span class="number">08</span>-<span class="number">05</span> <span class="number">11</span>:<span class="number">54</span>:<span class="number">50</span></div><div class="line"><span class="number">110617</span>  <span class="number">16</span>-<span class="number">08</span>-<span class="number">05</span> <span class="number">11</span>:<span class="number">54</span>:<span class="number">51</span></div><div class="line"><span class="number">110617</span>  <span class="number">16</span>-<span class="number">08</span>-<span class="number">05</span> <span class="number">11</span>:<span class="number">54</span>:<span class="number">52</span></div></pre></td></tr></table></figure>
+<p>小结：创建了3个子进程，和父进程一起并行运行。但很容易因为两个进程同时进行写操作而造成冲突。</p>
+<h3 id="什么是僵尸进程？如何避免？"><a href="#什么是僵尸进程？如何避免？" class="headerlink" title="什么是僵尸进程？如何避免？"></a>什么是僵尸进程？如何避免？</h3><p>子进程结束时，父进程没有等待它（通过调用wait或者waitpid）,那么子进程结束后不会释放所有资源（浪费呀！），这种进程被称为僵尸进程，他里面存放了子进程结束时的相关数据，如果僵尸进程过多，会占用大量系统资源（如内存），影响机器性能。<br>用直接方式，父进程创建了子进程后，并没有等待子进程结束，二十继续运行。似乎这里看不到有什么问题。如果php脚本并不是运行完后自动结束，而是常驻内存的，就会造成子进程无法回收的问题。也就是僵尸进程。可以通过pcntl_wai()方法等待进程结束，然后回收已经结束的进程。</p>
+<h4 id="栗子再来一个"><a href="#栗子再来一个" class="headerlink" title="栗子再来一个"></a>栗子再来一个</h4><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">pcntl_signal(SIGCHLD, SIG_IGN); //如果父进程不关心子进程什么时候结束,子进程结束后，内核会回收。  </div><div class="line">$pid = pcntl_fork();  </div><div class="line"> if ($pid == -1)&#123;  </div><div class="line">      ...  </div><div class="line">&#125; else if ($pid &gt; 0)&#123;  </div><div class="line">       echo "parent continue \n";  </div><div class="line">       pcntl_wait($status);  //阻塞方式，多余并行有违初心</div><div class="line">       //pcntl_wait($status,WNOHANG); //如果不想要阻塞进程注释掉上一句，开启此句等待子进程中断，防止子进程成为僵尸进程。  </div><div class="line">       for ($k=0; $k&lt;2; ++$k)&#123;  </div><div class="line">            beep();  </div><div class="line">      &#125;  </div><div class="line">&#125; else if ($pid == 0)&#123;  </div><div class="line">       ...  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="注意："><a href="#注意：" class="headerlink" title="注意："></a>注意：</h3><p>通过pcntl_XXX系列函数使用多进程功能。注意：pcntl_XXX只能运行在php CLI（命令行）环境下，在web服务器环境下，会出现无法预期的结果，请慎用！<br>附加：进程之间如何通信？</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/php/" rel="tag">#php</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/04/16/我30多年的写作秘诀首次公开/" rel="prev" title="什么是守护进程？">
+                什么是守护进程？ <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/04/09/探秘php多进程编程/"
+           data-title="探秘php多进程编程" data-url="http://yoursite.com/2016/04/09/探秘php多进程编程/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://7xiwze.com1.z0.glb.clouddn.com/50.jpg"
+               alt="Tianhao" />
+          <p class="site-author-name" itemprop="name">Tianhao</p>
+          <p class="site-description motion-element" itemprop="description">终生学习者，实践者，践行渐远。</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">21</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/actorTian" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#举个栗子-》1-直接方式：pcntl-php"><span class="nav-number">1.</span> <span class="nav-text">举个栗子=》1.直接方式：pcntl.php</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#结果："><span class="nav-number">1.1.</span> <span class="nav-text">结果：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是僵尸进程？如何避免？"><span class="nav-number">2.</span> <span class="nav-text">什么是僵尸进程？如何避免？</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#栗子再来一个"><span class="nav-number">2.1.</span> <span class="nav-text">栗子再来一个</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注意："><span class="nav-number">3.</span> <span class="nav-text">注意：</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Tianhao</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.2"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"lamphao"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

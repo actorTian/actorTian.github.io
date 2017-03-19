@@ -1,0 +1,671 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="php,并发," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.2" />
+
+
+
+
+
+
+<meta name="description" content="并发写入，是每个开发人员的必备核心技能之一。在并发环境下，有可能会出现脏读（Dirty Read）、不可重复读（UnrepeatableRead）、幻读（PhantomRead）、更新丢失（Lost update）等情况。为了应对这些问题，主流数据库都提供了锁机制，并引入了事务隔离级别的概念。但是，就于具体开发过程而言，一般分为悲观锁和乐观锁两种方式来解决并发冲突问题。
+乐观锁乐观锁（optimi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="乐观锁和悲观锁">
+<meta property="og:url" content="http://yoursite.com/2017/01/13/乐观锁和悲观锁/index.html">
+<meta property="og:site_name" content="学者">
+<meta property="og:description" content="并发写入，是每个开发人员的必备核心技能之一。在并发环境下，有可能会出现脏读（Dirty Read）、不可重复读（UnrepeatableRead）、幻读（PhantomRead）、更新丢失（Lost update）等情况。为了应对这些问题，主流数据库都提供了锁机制，并引入了事务隔离级别的概念。但是，就于具体开发过程而言，一般分为悲观锁和乐观锁两种方式来解决并发冲突问题。
+乐观锁乐观锁（optimi">
+<meta property="og:updated_time" content="2017-01-13T13:44:06.826Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="乐观锁和悲观锁">
+<meta name="twitter:description" content="并发写入，是每个开发人员的必备核心技能之一。在并发环境下，有可能会出现脏读（Dirty Read）、不可重复读（UnrepeatableRead）、幻读（PhantomRead）、更新丢失（Lost update）等情况。为了应对这些问题，主流数据库都提供了锁机制，并引入了事务隔离级别的概念。但是，就于具体开发过程而言，一般分为悲观锁和乐观锁两种方式来解决并发冲突问题。
+乐观锁乐观锁（optimi">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/01/13/乐观锁和悲观锁/"/>
+
+
+  <title> 乐观锁和悲观锁 | 学者 </title>
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">学者</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                乐观锁和悲观锁
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-01-13T21:35:54+08:00" content="2017-01-13">
+              2017-01-13
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/01/13/乐观锁和悲观锁/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/01/13/乐观锁和悲观锁/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>并发写入，是每个开发人员的必备核心技能之一。在并发环境下，有可能会出现脏读（Dirty Read）、不可重复读（UnrepeatableRead）、幻读（PhantomRead）、更新丢失（Lost update）等情况。<br>为了应对这些问题，主流数据库都提供了锁机制，并引入了事务隔离级别的概念。但是，就于具体开发过程而言，一般分为悲观锁和乐观锁两种方式来解决并发冲突问题。</p>
+<h3 id="乐观锁"><a href="#乐观锁" class="headerlink" title="乐观锁"></a>乐观锁</h3><p>乐观锁（optimistic locking）表现出大胆、务实的态度。使用乐观锁的前提是， 实际应用当中，发生冲突的概率比较低。他的设计和实现直接而简洁。目前Web应用中，乐观锁的使用占有绝对优势。</p>
+<a id="more"></a>
+<h4 id="处理逻辑，最常用的乐观锁处理方式是采用版本号方式处理。如下"><a href="#处理逻辑，最常用的乐观锁处理方式是采用版本号方式处理。如下" class="headerlink" title="处理逻辑，最常用的乐观锁处理方式是采用版本号方式处理。如下:"></a>处理逻辑，最常用的乐观锁处理方式是采用版本号方式处理。如下:</h4><ol>
+<li>读取要更新的记录。</li>
+<li>对记录按照用户的意愿进行修改。当然，这个时候不会修改ver字段。这个字段对用户是没意义的。</li>
+<li>在保存记录前，再次读取这个记录的 ver 字段，与之前读取的值进行比对。<br>如果 ver 不同，说明在用户修改过程中，这个记录被别人改动过了。那么， 我们要给出提示。</li>
+<li>如果 ver 相同，说明这个记录未被修改过。那么，对 ver ＋1， 并保存这个记录。这样子就完成了记录的更新。同时，该记录的版本号也加了1。</li>
+</ol>
+<h4 id="乐观锁失效"><a href="#乐观锁失效" class="headerlink" title="乐观锁失效"></a>乐观锁失效</h4><p>乐观锁存在失效的情况，属小概率事件，需要多个条件共同配合才会出现。如：</p>
+<ol>
+<li>应用采用自己的策略管理主键ID。如，常见的取当前ID字段的最大值＋1作为新ID。</li>
+<li>版本号字段 ver 默认值为 0 。</li>
+<li>用户A读取了某个记录准备修改它。该记录正好是ID最大的记录，且之前没被修改过， ver 为默认值 0。</li>
+<li>在用户A读取完成后，用户B恰好删除了该记录。之后，用户C又插入了一个新记录。</li>
+<li>此时，阴差阳错的，新插入的记录的ID与用户A读取的记录的ID是一致的， 而版本号两者又都是默认值 0。</li>
+<li>用户A在用户C操作完成后，修改完成记录并保存。由于ID、ver均可以匹配上， 因此用户A成功保存。但是，却把用户C插入的记录覆盖掉了。</li>
+</ol>
+<p>改进：使用时间戳作为版本号字段，精确到毫秒级别。但是仍有失效的可能，且使用高精度时间戳的话，成本比较高。</p>
+<h3 id="悲观锁"><a href="#悲观锁" class="headerlink" title="悲观锁"></a>悲观锁</h3><p>悲观锁提现了一种严谨的处事态度，实现相对来说成本高一些。</p>
+<h4 id="悲观锁处理逻辑："><a href="#悲观锁处理逻辑：" class="headerlink" title="悲观锁处理逻辑："></a>悲观锁处理逻辑：</h4><ol>
+<li>在对任意记录进行修改前，先尝试为该记录加上排他锁（exclusive locking）。<br>如果加锁失败，说明该记录正在被修改，那么当前查询可能要等待或者抛出异常。 具体响应方式由开发者根据实际需要决定。</li>
+<li>如果成功加锁，那么就可以对记录做修改，事务完成后就会解锁了。其间如果有其他对该记录做修改或加排他锁的操作，都会等待我们解锁或直接抛出异常。悲观锁确实很严谨，有效保证了数据的一致性，在C/S应用上有诸多成熟方案。 </li>
+</ol>
+<h4 id="悲观锁的缺点："><a href="#悲观锁的缺点：" class="headerlink" title="悲观锁的缺点："></a>悲观锁的缺点：</h4><p>但是他的缺点与优点一样的明显：<br>悲观锁适用于可靠的持续性连接，诸如C/S应用。 对于Web应用的HTTP连接，先天不适用。<br>锁的使用意味着性能的损耗，在高并发、锁定持续时间长的情况下，尤其严重。 Web应用的性能瓶颈多在数据库处，使用悲观锁，进一步收紧了瓶颈。非正常中止情况下的解锁机制，设计和实现起来很麻烦，成本还很高。不够严谨的设计下，可能产生莫名其妙的，不易被发现的， 让人头疼到想把键盘一巴掌碎的死锁问题。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/php/" rel="tag">#php</a>
+          
+            <a href="/tags/并发/" rel="tag">#并发</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/01/11/yii2的DI容器解读/" rel="next" title="yii2的DI容器解读">
+                <i class="fa fa-chevron-left"></i> yii2的DI容器解读
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/03/19/试试会不会毁了这一生--摄影/" rel="prev" title="试试会不会毁了这一生--摄影">
+                试试会不会毁了这一生--摄影 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/01/13/乐观锁和悲观锁/"
+           data-title="乐观锁和悲观锁" data-url="http://yoursite.com/2017/01/13/乐观锁和悲观锁/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://7xiwze.com1.z0.glb.clouddn.com/50.jpg"
+               alt="Tianhao" />
+          <p class="site-author-name" itemprop="name">Tianhao</p>
+          <p class="site-description motion-element" itemprop="description">终生学习者，实践者，践行渐远。</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">21</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/actorTian" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#乐观锁"><span class="nav-number">1.</span> <span class="nav-text">乐观锁</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#处理逻辑，最常用的乐观锁处理方式是采用版本号方式处理。如下"><span class="nav-number">1.1.</span> <span class="nav-text">处理逻辑，最常用的乐观锁处理方式是采用版本号方式处理。如下:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#乐观锁失效"><span class="nav-number">1.2.</span> <span class="nav-text">乐观锁失效</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#悲观锁"><span class="nav-number">2.</span> <span class="nav-text">悲观锁</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#悲观锁处理逻辑："><span class="nav-number">2.1.</span> <span class="nav-text">悲观锁处理逻辑：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#悲观锁的缺点："><span class="nav-number">2.2.</span> <span class="nav-text">悲观锁的缺点：</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Tianhao</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.2"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"lamphao"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
